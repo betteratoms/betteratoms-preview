@@ -109,6 +109,7 @@ html.menu-open{overflow:hidden}
 .scroll-hint .dots{display:flex;gap:6px}
 .scroll-hint .dots i{width:6px;height:6px;border-radius:50%;background:var(--starlight);animation:hintbounce 1.4s ease-in-out infinite}
 .scroll-hint .dots i:nth-child(2){animation-delay:.2s}
+.hero.is-paused .scroll-hint .dots i{animation-play-state:paused}
 @keyframes hintbounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 @media (max-aspect-ratio:4/5){
   .hero-poster img,.hero-video{object-position:50% 35%}

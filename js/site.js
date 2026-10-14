@@ -257,6 +257,7 @@
     userPaused = !userPaused;
     pauseBtn.setAttribute('aria-pressed', String(userPaused));
     pauseBtn.textContent = userPaused ? 'Play animation' : 'Pause animation';
+    hero.classList.toggle('is-paused', userPaused);
     kick();
   });
   doc.addEventListener('visibilitychange', kick);
