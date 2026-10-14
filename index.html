@@ -1,1346 +1,2810 @@
 <!DOCTYPE html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Better Atoms | Exploring the Universe, One Scale at a Time</title>
-  <meta name="description" content="Better Atoms explores how energy, technology, and sustainability function in space environments through gamified STEM simulations, EdTech hardware kits, Paddo books, Atomic Swarms AI, and the UFO CRASH space restaurant." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow"><!-- remove at launch -->
+  <title>Better Atoms: space EdTech where curiosity is stronger than gravity</title>
+  <meta name="description" content="Better Atoms explores how energy, technology and sustainability work in space, through stories, games, learning kits and the book Paddo and the Trial of Curiosity.">
+  <meta name="theme-color" content="#120B33">
 
-  <!-- Google Fonts -->
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="assets/brand/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon-180.png">
+
+  <!-- Open Graph & Twitter -->
+  <meta property="og:title" content="Better Atoms: space EdTech where curiosity is stronger than gravity">
+  <meta property="og:description" content="Better Atoms explores how energy, technology and sustainability work in space, through stories, games, learning kits and the book Paddo and the Trial of Curiosity.">
+  <meta property="og:image" content="https://betteratoms2190.github.io/betteratoms-preview/assets/brand/og-share-1200x630.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Preload Hero Posters -->
+  <link rel="preload" as="image" href="assets/home/blackhole-poster-desktop.webp" media="(min-aspect-ratio: 4/5)">
+  <link rel="preload" as="image" href="assets/home/blackhole-poster-mobile.webp" media="(max-aspect-ratio: 4/5)">
+
+  <!-- Google Fonts: Fredoka (600, 700) and Atkinson Hyperlegible (400, 700) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            obsidian: '#04060D',
-            void: '#080C1A',
-            atomCyan: '#00F0FF',
-            atomEmerald: '#10B981',
-            atomAmber: '#F59E0B',
-            atomViolet: '#8B5CF6',
-            atomRose: '#F43F5E'
-          }
-        }
+  <!-- JSON-LD on Home -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Better Atoms",
+        "legalName": "Better Atoms Technologies LLP",
+        "url": "https://www.betteratoms.com",
+        "email": "contactus@betteratoms.com",
+        "logo": "https://betteratoms2190.github.io/betteratoms-preview/assets/brand/better-atoms-logo-256.png"
+      },
+      {
+        "@type": "Book",
+        "name": "Paddo and the Trial of Curiosity: The Space Explorer's Handbook",
+        "author": {
+          "@type": "Person",
+          "name": "Aman Singh"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Better Atoms Technologies LLP"
+        },
+        "url": "https://amzn.in/d/hnIT4PV",
+        "typicalAgeRange": "6-12"
       }
-    };
+    ]
+  }
   </script>
 
-  <!-- Three.js r128 CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <style>
+  <style id="site-stylesheet">
+    /* ==========================================================================
+       Better Atoms Design System (css/site.css)
+       Two Worlds: Space (--night) & Earth (--sky-top / --sky-bottom)
+       ========================================================================== */
     :root {
-      color-scheme: dark;
+      --night: #120B33;
+      --violet: #4536A3;
+      --violet-deep: #241A5E;
+      --lime: #9BD13C;
+      --lime-edge: #5E8F1F;
+      --gold: #FFB347;
+      --cyan: #4FE3FF;
+      --starlight: #FFF6E6;
+      --ink: #1B1446;
+      --sky-top: #8FD3FF;
+      --sky-bottom: #E6F6FF;
+      --cream-rim: #FFF8EC;
     }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--night);
+      color: var(--starlight);
+      font-family: 'Atkinson Hyperlegible', sans-serif;
+      font-size: 100%;
+    }
+
     body {
-      background-color: #04060D;
-      color: #F8FAFC;
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.6;
+      background-color: var(--night);
+      color: var(--starlight);
       overflow-x: hidden;
     }
-    .glass-panel {
-      background: rgba(11, 17, 34, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Accessibility: Skip Link & Focus Rings */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 1rem;
+      z-index: 9999;
+      background: var(--lime);
+      color: var(--night);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border-radius: 9999px;
+      text-decoration: none;
     }
-    .glass-panel-hover {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    .skip-link:focus {
+      top: 1rem;
     }
-    .glass-panel-hover:hover {
-      border-color: rgba(0, 240, 255, 0.45);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px -15px rgba(0, 240, 255, 0.16);
+
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
     }
-    .neon-border-cyan {
-      box-shadow: 0 0 28px -5px rgba(0, 240, 255, 0.35), inset 0 0 15px -8px rgba(0, 240, 255, 0.3);
+
+    /* Typography */
+    h1, h2, h3 {
+      font-family: 'Fredoka', sans-serif;
+      margin-top: 0;
+      letter-spacing: -0.01em;
     }
-    .reflective-stage {
-      background: radial-gradient(circle at 50% 60%, rgba(0, 240, 255, 0.14) 0%, rgba(139, 92, 246, 0.07) 35%, rgba(4, 6, 13, 0.96) 75%);
+
+    h1 {
+      font-weight: 700;
+      font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+      line-height: 1.05;
+      margin-bottom: 1rem;
     }
-    .grid-bg {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+
+    h2 {
+      font-weight: 600;
+      font-size: clamp(2rem, 3.6vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1rem;
     }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      background: rgba(255, 255, 255, 0.12);
-      height: 6px;
-      border-radius: 999px;
+
+    h3 {
+      font-weight: 600;
+      font-size: clamp(1.4rem, 2vw, 1.75rem);
+      line-height: 1.2;
+      margin-bottom: 0.65rem;
     }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #00F0FF;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.9);
+
+    p {
+      margin-top: 0;
+      margin-bottom: 1.25rem;
+      max-width: 65ch;
     }
-    canvas {
+
+    a {
+      color: var(--cyan);
+      text-underline-offset: 0.2em;
+      transition: opacity 0.2s ease;
+    }
+    .world-sky a:not(.btn) {
+      color: var(--violet);
+      font-weight: 700;
+    }
+
+    /* Home H1 Special Gradient & Glow */
+    .hero-title-gradient {
+      background: linear-gradient(180deg, var(--starlight) 15%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 8px 32px rgba(69, 54, 163, 0.55);
+    }
+
+    .tagline {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: clamp(1.4rem, 2vw, 1.75rem);
+      line-height: 1.25;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    /* Layout Containers */
+    .container {
+      width: min(1240px, 100% - 2.5rem);
+      margin-inline: auto;
+    }
+
+    /* Two Worlds Sections */
+    .world-night {
+      position: relative;
+      background-color: var(--night);
+      background-image:
+        url('assets/ui/bg-space-1920x1080.webp'),
+        radial-gradient(circle at 20% 25%, rgba(69, 54, 163, 0.35) 0%, transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(36, 26, 94, 0.5) 0%, transparent 60%);
+      background-size: cover;
+      background-position: center;
+      color: var(--starlight);
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+    }
+
+    .world-night::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/ui/pattern-atoms-tile-480.png');
+      background-repeat: repeat;
+      background-size: 480px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .world-night > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .world-sky {
+      position: relative;
+      background:
+        url('assets/ui/bg-sky-1920x1080.webp') center / cover no-repeat,
+        linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+      color: var(--ink);
+      padding-block: clamp(4rem, 8vw, 6.5rem);
+    }
+
+    /* Cloud Dividers */
+    .cloud-divider {
+      position: relative;
+      width: 100%;
+      line-height: 0;
+      overflow: hidden;
+      background-color: var(--night);
+    }
+    .cloud-divider img,
+    .cloud-divider svg {
       display: block;
       width: 100%;
+      height: clamp(64px, 9vw, 150px);
+      object-fit: cover;
+    }
+    .cloud-divider--night-to-sky {
+      transform: scaleY(-1);
+    }
+
+    /* Gummy 3D Pill Buttons (Touch target >= 44px) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.7rem 1.65rem;
+      border-radius: 9999px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.2s ease;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background-color: var(--lime);
+      color: var(--night);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.45),
+        0 6px 0 var(--lime-edge),
+        0 12px 24px rgba(18, 11, 51, 0.35);
+    }
+    .btn-primary:hover {
+      filter: brightness(1.04);
+    }
+    .btn-primary:active {
+      transform: translateY(4px);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.45),
+        0 2px 0 var(--lime-edge),
+        0 6px 12px rgba(18, 11, 51, 0.3);
+    }
+
+    .btn-secondary-night {
+      background-color: rgba(36, 26, 94, 0.55);
+      color: var(--starlight);
+      border: 2px solid var(--starlight);
+      box-shadow: 0 8px 20px rgba(18, 11, 51, 0.3);
+    }
+    .btn-secondary-night:hover {
+      background-color: rgba(69, 54, 163, 0.5);
+    }
+    .btn-secondary-night:active {
+      transform: translateY(2px);
+    }
+
+    .btn-secondary-sky {
+      background-color: rgba(255, 248, 236, 0.85);
+      color: var(--violet);
+      border: 2px solid var(--violet);
+      box-shadow: 0 8px 20px rgba(27, 20, 70, 0.12);
+    }
+    .btn-secondary-sky:hover {
+      background-color: #FFFFFF;
+    }
+    .btn-secondary-sky:active {
+      transform: translateY(2px);
+    }
+
+    .btn-sm {
+      min-height: 44px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.95rem;
+    }
+
+    /* Badges (12px radius) */
+    .badge-gold {
+      display: inline-block;
+      background-color: var(--gold);
+      color: var(--night);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .placeholder-bracket {
+      display: inline-block;
+      background: rgba(255, 179, 71, 0.16);
+      border: 1px dashed var(--gold);
+      color: var(--gold);
+      padding: 0.15rem 0.5rem;
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+    .world-sky .placeholder-bracket {
+      background: rgba(69, 54, 163, 0.1);
+      border-color: var(--violet);
+      color: var(--violet);
+    }
+
+    /* Lit 3D Picture Frames (32px radius + pointer tilt + gloss) */
+    .frame-3d {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+      background-color: var(--violet-deep);
+    }
+    .world-night .frame-3d {
+      border: 2px solid var(--violet);
+      box-shadow: 0 30px 60px -20px rgba(69, 54, 163, 0.65);
+    }
+    .world-sky .frame-3d {
+      border: 6px solid var(--cream-rim);
+      box-shadow: 0 30px 60px -20px rgba(27, 20, 70, 0.28);
+    }
+
+    .frame-3d img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .frame-3d::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        420px circle at var(--gloss-x, 50%) var(--gloss-y, 25%),
+        rgba(255, 255, 255, 0.26),
+        transparent 65%
+      );
+      opacity: var(--gloss-opacity, 0);
+      transition: opacity 300ms ease;
+      pointer-events: none;
+    }
+
+    /* Cards (24px radius) */
+    .card-night {
+      background-color: var(--violet-deep);
+      border: 2px solid var(--violet);
+      border-radius: 24px;
+      padding: 1.75rem;
+      box-shadow: 0 24px 48px -18px rgba(8, 5, 24, 0.7);
+    }
+
+    .card-sky {
+      background-color: var(--cream-rim);
+      color: var(--ink);
+      border-radius: 24px;
+      padding: 1.75rem;
+      box-shadow: 0 24px 48px -18px rgba(27, 20, 70, 0.18);
+    }
+
+    /* Sealed Capsules for "Coming soon" Mission Board Tiles */
+    .capsule-sealed {
+      border: 2px dashed var(--gold);
+      background-color: rgba(36, 26, 94, 0.8);
+    }
+    .capsule-sealed .frame-3d img,
+    .capsule-sealed .media-art {
+      filter: saturate(70%);
+    }
+
+    /* Character Pop-out Cut-outs */
+    .char-cutout {
+      filter: drop-shadow(0 18px 24px rgba(18, 11, 51, 0.35));
+      pointer-events: none;
+      user-select: none;
+    }
+
+    @keyframes gentle-bob {
+      0%, 100% { transform: translateY(-8px); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes slow-hover-drift {
+      0%, 100% { transform: translate(0, -6px) rotate(-1deg); }
+      50% { transform: translate(10px, 6px) rotate(1deg); }
+    }
+
+    .guide-bob {
+      animation: gentle-bob 6s ease-in-out infinite;
+    }
+
+    .guide-drift {
+      animation: slow-hover-drift 8s ease-in-out infinite;
+    }
+
+    /* Announcement Bar */
+    .announcement-bar {
+      background-color: var(--violet);
+      color: var(--starlight);
+      padding: 0.55rem 1rem;
+      font-size: 0.98rem;
+      position: relative;
+      z-index: 60;
+    }
+    .announcement-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .announcement-bar a {
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .announcement-close {
+      background: transparent;
+      border: 1px solid rgba(255, 246, 230, 0.4);
+      color: var(--starlight);
+      border-radius: 9999px;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0.25rem 0.75rem;
+      cursor: pointer;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+    }
+
+    /* Site Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding: 0.75rem 0;
+      transition: background-color 0.25s ease, backdrop-filter 0.25s ease, border-color 0.25s ease;
+      background-color: transparent;
+    }
+    .site-header.is-scrolled {
+      background-color: rgba(18, 11, 51, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 246, 230, 0.12);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand-logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--starlight);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(255, 246, 230, 0.35);
+      background-color: #000;
+      object-fit: cover;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .site-nav a {
+      color: var(--starlight);
+      text-decoration: none;
+      padding: 0.55rem 0.85rem;
+      border-radius: 9999px;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .site-nav a:hover,
+    .site-nav a[aria-current="page"] {
+      background-color: rgba(255, 246, 230, 0.14);
+      color: var(--gold);
+    }
+
+    .menu-toggle {
+      display: none;
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      background: var(--violet-deep);
+      color: var(--starlight);
+      border: 2px solid var(--starlight);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Full-screen Mobile Overlay Menu */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background-color: var(--night);
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+    .mobile-overlay.is-open {
+      display: flex;
+    }
+    .mobile-overlay-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-block: auto;
+    }
+    .mobile-overlay-links a {
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.8rem, 6vw, 2.5rem);
+      color: var(--starlight);
+      text-decoration: none;
+      padding: 0.4rem 0;
+    }
+    .mobile-overlay-links a[aria-current="page"] {
+      color: var(--lime);
+    }
+
+    @media (max-width: 960px) {
+      .site-nav, .header-cta-desktop {
+        display: none;
+      }
+      .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    /* ==========================================================================
+       Section 4: The Home Hero (Paddo inside the Black Hole + Dive)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      height: 190svh;
+      background-color: var(--night);
+      margin-top: -76px; /* Pull behind transparent header */
+    }
+    .hero-stage {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      --hole-x: 63.5%;
+      --hole-y: 47%;
+      transform-origin: var(--hole-x) var(--hole-y);
+      transform: scale(calc(1 + var(--dive, 0) * 2.2));
+      will-change: transform;
+    }
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
       height: 100%;
+      object-fit: cover;
+      object-position: 70% 50%;
+      transform: translate(var(--vid-px, 0px), var(--vid-py, 0px)) scale(var(--vid-scale, 1));
+    }
+    @media (max-aspect-ratio: 4/5) {
+      .hero-video {
+        object-position: 50% 35%;
+      }
+    }
+    .hero-sparkles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      transform: translate(var(--can-px, 0px), var(--can-py, 0px));
+    }
+    .hero-dark {
+      position: absolute;
+      inset: 0;
+      background-color: var(--night);
+      opacity: var(--dive, 0);
+      pointer-events: none;
+    }
+    .hero-copy-wrap {
+      position: relative;
+      z-index: 10;
+      width: min(1240px, 100% - 2.5rem);
+      margin-inline: auto;
+      pointer-events: none;
+    }
+    .hero-copy {
+      max-width: 34rem;
+      pointer-events: auto;
+      opacity: calc(1 - var(--dive, 0) * 1.8);
+      transform: translate(var(--txt-px, 0px), calc(var(--dive, 0) * -32px + var(--txt-py, 0px)));
+      will-change: opacity, transform;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-aspect-ratio: 4/5) {
+      .hero-stage {
+        align-items: flex-end;
+        padding-bottom: 4.5rem;
+        background: linear-gradient(180deg, transparent 45%, var(--night) 95%);
+      }
+      .hero-media::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 48%, rgba(18, 11, 51, 0.94) 88%, var(--night) 100%);
+        pointer-events: none;
+      }
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 12;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      color: var(--starlight);
+      opacity: 0.9;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+    .hero-scroll-hint.is-hidden {
+      opacity: 0;
+    }
+    .scroll-dots {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .scroll-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--gold);
+      animation: dot-bounce 1.4s infinite ease-in-out;
+    }
+    .scroll-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    @keyframes dot-bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.45; }
+      50% { transform: translateY(5px); opacity: 1; }
+    }
+
+    .hero-pause {
+      position: absolute;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 15;
+      min-height: 44px;
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      background-color: rgba(18, 11, 51, 0.65);
+      color: var(--starlight);
+      border: 1px solid rgba(255, 246, 230, 0.35);
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+    .hero-pause[aria-pressed="true"] {
+      background-color: var(--gold);
+      color: var(--night);
+      border-color: var(--gold);
+    }
+
+    /* ==========================================================================
+       Mission Board & Grids
+       ========================================================================== */
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.25rem;
+      align-items: start;
+    }
+    @media (max-width: 820px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .mission-board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+      margin-top: 2rem;
+    }
+    .mission-tile-large {
+      grid-column: span 2;
+      grid-row: span 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    @media (max-width: 960px) {
+      .mission-board {
+        grid-template-columns: 1fr;
+      }
+      .mission-tile-large {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+
+    /* Crew Cards with Overlapping Cut-outs */
+    .crew-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.75rem;
+      margin-top: 4.5rem;
+    }
+    @media (max-width: 980px) {
+      .crew-grid {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 3.5rem;
+      }
+    }
+    @media (max-width: 560px) {
+      .crew-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .crew-card {
+      position: relative;
+      padding-top: 4.5rem;
+    }
+    .crew-cutout-wrap {
+      position: absolute;
+      top: -3.2rem;
+      left: 1.5rem;
+      width: 96px;
+      height: 96px;
+    }
+
+    /* Books 16-Chapter Grid */
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 980px) {
+      .chapters-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 560px) {
+      .chapters-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .chapter-btn {
+      text-align: left;
+      background: var(--cream-rim);
+      color: var(--ink);
+      border: 4px solid #FFFFFF;
+      border-radius: 24px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 18px 36px -14px rgba(27, 20, 70, 0.16);
+    }
+    .chapter-btn:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Accessible Dialog Lightbox */
+    dialog.chapter-dialog {
+      max-width: min(820px, 92vw);
+      width: 100%;
+      background-color: var(--violet-deep);
+      color: var(--starlight);
+      border: 2px solid var(--cyan);
+      border-radius: 32px;
+      padding: 1.75rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.75);
+    }
+    dialog.chapter-dialog::backdrop {
+      background: rgba(18, 11, 51, 0.85);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Footer */
+    .site-footer {
+      background-color: var(--night);
+      color: var(--starlight);
+      border-top: 2px solid var(--violet-deep);
+      padding: 4rem 0 6rem;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.75rem;
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    /* Illustrated SVG Fallbacks when local assets/ folder is not yet attached */
+    .media-art {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      text-align: center;
+      background: radial-gradient(circle at 30% 30%, var(--violet), var(--violet-deep) 70%, var(--night));
+      color: var(--starlight);
+      font-family: 'Fredoka', sans-serif;
+    }
+    .world-sky .media-art {
+      background: radial-gradient(circle at 30% 25%, #FFFFFF, var(--sky-top) 85%);
+      color: var(--ink);
+    }
+
+    /* Reduced Motion Rules */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .hero {
+        height: 100svh;
+      }
+      .hero-media,
+      .hero-copy,
+      .frame-3d,
+      .guide-bob,
+      .guide-drift {
+        transform: none !important;
+        animation: none !important;
+        transition: none !important;
+      }
+      .hero-sparkles,
+      .hero-scroll-hint {
+        display: none !important;
+      }
+    }
+
+    /* Preview Switcher & GitHub Pages ZIP Exporter Bar (Preview Utility Only) */
+    .preview-dock {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(18, 11, 51, 0.96);
+      border-top: 2px solid var(--cyan);
+      padding: 0.55rem 1rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+    .preview-dock-pages {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .preview-tab {
+      background: var(--violet-deep);
+      color: var(--starlight);
+      border: 1px solid rgba(255, 246, 230, 0.25);
+      border-radius: 9999px;
+      padding: 0.35rem 0.75rem;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      min-height: 36px;
+    }
+    .preview-tab.is-active {
+      background: var(--cyan);
+      color: var(--night);
+      border-color: var(--cyan);
+      font-weight: 700;
     }
   </style>
 </head>
+<body>
 
-<body class="font-sans antialiased selection:bg-atomCyan selection:text-obsidian grid-bg">
+  <a href="#main-content" class="skip-link">Skip to content</a>
 
-  <div id="github-pages-exporter" class="relative z-50 bg-obsidian/95 border-b border-atomCyan/40 px-4 py-2.5 shadow-lg">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5">
-        <span class="w-2.5 h-2.5 rounded-full bg-atomEmerald animate-ping"></span>
-        <span class="font-mono text-xs text-slate-200">
-          <strong class="text-atomCyan">GITHUB PAGES EXPORT READY:</strong> Download clean standalone HTML (auto-strips this bar &amp; runtime canvas)
-        </span>
-      </div>
-      <div class="flex flex-wrap items-center gap-2">
-        <button onclick="downloadCleanHTML('index.html')" class="px-3.5 py-1.5 rounded-lg bg-atomCyan text-obsidian font-display font-bold text-xs hover:bg-white transition flex items-center gap-1.5 shadow-md shadow-atomCyan/20">
-          <span>⬇️ Download index.html</span>
-        </button>
-        <button onclick="downloadCleanHTML('blog.html')" class="px-3.5 py-1.5 rounded-lg bg-atomEmerald text-obsidian font-display font-bold text-xs hover:bg-white transition flex items-center gap-1.5 shadow-md shadow-atomEmerald/20">
-          <span>⬇️ Download blog.html</span>
-        </button>
-        <button onclick="copyCleanHTML()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs border border-white/15 transition">
-          📋 Copy Clean Source
-        </button>
-      </div>
+  <!-- Announcement Bar (very top, --violet background, one line, dismissible) -->
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Announcement">
+    <div class="container announcement-inner">
+      <span>Just launched 🚀 Better Atoms: Paddo and the Trial of Curiosity 📘</span>
+      <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener">Get it on Amazon</a>
+      <button type="button" class="announcement-close" id="announcement-close" aria-label="Dismiss announcement">Close</button>
     </div>
   </div>
 
-  <div class="relative z-40 bg-gradient-to-r from-atomViolet/30 via-atomCyan/20 to-atomEmerald/30 border-b border-white/10 backdrop-blur-md">
-    <div class="max-w-7xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
-      <div class="flex items-center gap-2.5">
-        <span class="px-2.5 py-0.5 rounded-full bg-atomCyan/20 border border-atomCyan/50 text-atomCyan font-mono text-[11px] uppercase tracking-wider font-semibold">
-          Just Launched 🚀
-        </span>
-        <span class="font-medium text-white">
-          Better Atoms: <strong class="text-atomCyan">Paddo and the Trial of Curiosity</strong> 📘
-        </span>
-      </div>
-      <div class="flex items-center gap-4">
-        <button onclick="openBookModal()" class="text-atomCyan hover:text-white font-mono text-xs underline underline-offset-4 transition flex items-center gap-1">
-          Inspect Mission Dossier &rarr;
-        </button>
-        <a href="#books" class="hidden sm:inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-medium transition">
-          Explore Book Series
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <header class="sticky top-0 z-40 glass-panel border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <!-- Brand Logo (Black Circular Emblem with Orbital Rings and Bold Text 'BETTER ATOMS') -->
-      <a href="#home" class="flex items-center gap-3.5 group">
-        <div class="relative w-12 h-12 rounded-full bg-black border border-white/25 flex items-center justify-center shadow-lg group-hover:border-atomCyan transition">
-          <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-            <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(30 50 50)" stroke="#00F0FF" stroke-width="1.8" stroke-opacity="0.75"/>
-            <ellipse cx="50" cy="50" rx="42" ry="16" transform="rotate(-30 50 50)" stroke="#10B981" stroke-width="1.8" stroke-opacity="0.75"/>
-            <circle cx="50" cy="50" r="6" fill="#FFFFFF"/>
-            <text x="50" y="47" text-anchor="middle" fill="#FFFFFF" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="9.5" letter-spacing="1">BETTER</text>
-            <text x="50" y="59" text-anchor="middle" fill="#00F0FF" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="9.5" letter-spacing="1.2">ATOMS</text>
-          </svg>
-        </div>
-        <div>
-          <span class="font-display font-bold text-lg tracking-wider text-white block leading-none">BETTER ATOMS</span>
-          <span class="font-mono text-[10px] text-slate-400 tracking-widest uppercase">Space Energy &bull; STEM EdTech</span>
-        </div>
+  <!-- Site Header -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" onclick="return switchPage('home', event)" class="brand-logo-link">
+        <img
+          src="assets/brand/better-atoms-logo-256.png"
+          alt="Better Atoms"
+          width="48"
+          height="48"
+          decoding="async"
+          class="brand-logo"
+          onerror="this.outerHTML='<span class=\'brand-logo\' style=\'display:inline-flex;align-items:center;justify-content:center;font-size:0.62rem;text-align:center;line-height:1.05;color:#FFF6E6;font-weight:700;\'>BETTER<br>ATOMS</span>'"
+        >
+        <span>Better Atoms</span>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center gap-1 xl:gap-2 text-sm font-medium text-slate-300">
-        <a href="#home" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Home</a>
-        <a href="#visualizer" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition text-atomCyan font-mono text-xs">[3D Lab]</a>
-        <a href="#blog-atoms" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Blog Atoms</a>
-        <a href="#books" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Books</a>
-        <a href="#restaurant" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Restaurant</a>
-        <a href="#edtech" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">EdTech</a>
-        <a href="#games" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Games &amp; AI</a>
-        <a href="#policies" class="px-3 py-2 rounded-lg hover:text-atomCyan hover:bg-white/5 transition">Privacy &amp; Policies</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" data-nav="home" aria-current="page" onclick="return switchPage('home', event)">Home</a>
+        <a href="books.html" data-nav="books" onclick="return switchPage('books', event)">Books</a>
+        <a href="games.html" data-nav="games" onclick="return switchPage('games', event)">Games</a>
+        <a href="edtech.html" data-nav="edtech" onclick="return switchPage('edtech', event)">EdTech</a>
+        <a href="space-restaurant.html" data-nav="restaurant" onclick="return switchPage('restaurant', event)">Space Restaurant</a>
+        <a href="blog.html" data-nav="blog" onclick="return switchPage('blog', event)">Blog Atoms</a>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-3">
-        <a href="https://play.google.com/store/apps/details?id=better_atoms.atomic_swarms&hl=en_IN" target="_blank" rel="noopener noreferrer"
-           class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-atomCyan to-atomEmerald text-obsidian font-display font-bold text-xs uppercase tracking-wider hover:opacity-95 transition shadow-lg shadow-atomCyan/20">
-          <span>Atomic Swarms App</span>
-          <span>&nearr;</span>
-        </a>
-        <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-lg bg-white/5 border border-white/10 text-slate-200 hover:text-atomCyan" aria-label="Toggle Menu">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-        </button>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary btn-sm header-cta-desktop">Get the book</a>
+        <button type="button" class="menu-toggle" id="menu-open-btn" aria-expanded="false" aria-controls="mobile-overlay">Menu</button>
       </div>
-    </div>
-
-    <!-- Mobile Menu Drawer -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-white/10 bg-obsidian/95 px-4 pt-3 pb-6 space-y-2">
-      <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Home</a>
-      <a href="#visualizer" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-atomCyan font-mono">[3D Lab] Quantum &amp; Space Observatory</a>
-      <a href="#blog-atoms" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Blog Atoms (Cosmic Feed)</a>
-      <a href="#books" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Books (Paddo Series)</a>
-      <a href="#restaurant" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Space Restaurant: UFO CRASH</a>
-      <a href="#edtech" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">EdTech &amp; Modular Kits</a>
-      <a href="#games" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Games &amp; Atomic Swarms</a>
-      <a href="#policies" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-lg hover:bg-white/5 text-slate-200">Privacy &amp; Policies</a>
     </div>
   </header>
 
-  <section id="home" class="relative pt-8 pb-20 lg:pt-14 lg:pb-28 overflow-hidden">
-    <!-- Ambient Background Glows -->
-    <div class="pointer-events-none absolute -top-40 left-1/4 w-96 h-96 bg-atomCyan/10 rounded-full blur-3xl"></div>
-    <div class="pointer-events-none absolute top-40 right-10 w-96 h-96 bg-atomViolet/10 rounded-full blur-3xl"></div>
+  <!-- Full-screen Night Mobile Overlay -->
+  <div class="mobile-overlay" id="mobile-overlay" role="dialog" aria-modal="true" aria-label="Site menu">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3rem;">Better Atoms</span>
+      <button type="button" class="menu-toggle" id="menu-close-btn" style="display:inline-flex;">Close</button>
+    </div>
+    <nav class="mobile-overlay-links" aria-label="Mobile navigation">
+      <a href="index.html" data-nav-mobile="home" aria-current="page" onclick="closeMobileMenu(); return switchPage('home', event)">Home</a>
+      <a href="books.html" data-nav-mobile="books" onclick="closeMobileMenu(); return switchPage('books', event)">Books</a>
+      <a href="games.html" data-nav-mobile="games" onclick="closeMobileMenu(); return switchPage('games', event)">Games</a>
+      <a href="edtech.html" data-nav-mobile="edtech" onclick="closeMobileMenu(); return switchPage('edtech', event)">EdTech</a>
+      <a href="space-restaurant.html" data-nav-mobile="restaurant" onclick="closeMobileMenu(); return switchPage('restaurant', event)">Space Restaurant</a>
+      <a href="blog.html" data-nav-mobile="blog" onclick="closeMobileMenu(); return switchPage('blog', event)">Blog Atoms</a>
+    </nav>
+    <div>
+      <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary">Get the book</a>
+    </div>
+  </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        
-        <!-- Left Column: Brand Narrative & 3 Pillars -->
-        <div class="lg:col-span-6 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border-atomCyan/30 text-atomCyan font-mono text-xs">
-            <span class="w-2 h-2 rounded-full bg-atomEmerald animate-ping"></span>
-            <span>STEM EdTech &bull; Space Energy &bull; Autonomous AI</span>
+  <!-- ==========================================================================
+       MAIN CONTENT CONTAINER (Renders Home by default + All Pages in Preview)
+       ========================================================================== -->
+  <main id="main-content">
+
+    <div id="page-home" class="page-view">
+      <!-- 4. The home hero: Paddo inside the black hole -->
+      <section class="hero" id="hero-section" aria-labelledby="hero-title">
+        <div class="hero-stage">
+          <div class="hero-media" id="hero-media">
+            <video class="hero-video" id="hero-video" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+            <canvas class="hero-sparkles" id="hero-sparkles" aria-hidden="true"></canvas>
+            <div class="hero-dark" id="hero-dark"></div>
           </div>
 
-          <h1 class="font-display font-bold text-4xl sm:text-5xl xl:text-6xl tracking-tight text-white leading-[1.08]">
-            Exploring the Universe, <span class="text-transparent bg-clip-text bg-gradient-to-r from-atomCyan via-atomEmerald to-atomViolet">One Scale at a Time.</span>
-          </h1>
-
-          <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
-            Better Atoms explores how <strong class="text-white">energy, technology, and sustainability</strong> function in space environments. Through digital simulations, interactive platforms, modular hardware kits, and our space-age alien restaurant, learners discover how <span class="text-atomCyan">solar, kinetic, chemical, and thermal energy</span> power spaceships, habitats, and future space infrastructure.
-          </p>
-
-          <!-- Three Pillars from betteratoms.com -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <button onclick="switchLabMode('cosmic')" class="text-left p-3.5 rounded-xl glass-panel glass-panel-hover group">
-              <div class="text-xl mb-1">🔭</div>
-              <div class="font-display font-semibold text-sm text-white group-hover:text-atomCyan transition">Cosmic Research</div>
-              <p class="text-xs text-slate-400 mt-0.5">Daily updates from the frontiers of astronomy.</p>
-            </button>
-            <button onclick="switchLabMode('molecular')" class="text-left p-3.5 rounded-xl glass-panel glass-panel-hover group">
-              <div class="text-xl mb-1">🧬</div>
-              <div class="font-display font-semibold text-sm text-white group-hover:text-atomEmerald transition">Micro to Macro</div>
-              <p class="text-xs text-slate-400 mt-0.5">Visualizing scale from DNA &amp; Atoms to Galaxies.</p>
-            </button>
-            <button onclick="switchLabMode('reactor')" class="text-left p-3.5 rounded-xl glass-panel glass-panel-hover group">
-              <div class="text-xl mb-1">🚀</div>
-              <div class="font-display font-semibold text-sm text-white group-hover:text-atomAmber transition">Future Tech</div>
-              <p class="text-xs text-slate-400 mt-0.5">Tracking aerospace propulsion &amp; clean energy.</p>
-            </button>
+          <div class="hero-copy-wrap">
+            <div class="hero-copy" id="hero-copy">
+              <h1 id="hero-title" class="hero-title-gradient">Better Atoms</h1>
+              <p class="tagline">Where curiosity is stronger than gravity.</p>
+              <p>A space EdTech company. Better Atoms explores how energy, technology, and sustainability function in space environments.</p>
+              <div class="hero-actions">
+                <a href="#crew" class="btn btn-primary">Meet Paddo</a>
+                <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-secondary-night">Get the book</a>
+              </div>
+            </div>
           </div>
 
-          <!-- Primary CTA Buttons -->
-          <div class="flex flex-wrap items-center gap-4 pt-2">
-            <a href="#restaurant" class="px-6 py-3.5 rounded-xl bg-atomCyan text-obsidian font-display font-bold text-sm tracking-wide hover:bg-white transition shadow-lg shadow-atomCyan/25">
-              Launch UFO CRASH Energy Sim &rarr;
-            </a>
-            <a href="#blog-atoms" class="px-6 py-3.5 rounded-xl glass-panel hover:border-atomCyan/50 text-white font-display font-medium text-sm transition flex items-center gap-2">
-              <span>Cosmic Intelligence Feed</span>
-              <span class="px-2 py-0.5 rounded bg-atomEmerald/20 text-atomEmerald font-mono text-xs">LIVE (9)</span>
-            </a>
+          <div class="hero-scroll-hint" id="hero-scroll-hint" aria-hidden="true">
+            <span>Scroll to fall in</span>
+            <div class="scroll-dots"><span></span><span></span></div>
+          </div>
+
+          <button type="button" class="hero-pause" id="hero-pause" aria-pressed="false">Pause animation</button>
+        </div>
+      </section>
+
+      <!-- Intro (night; this is where the dive lands) -->
+      <section class="world-night">
+        <div class="container">
+          <h2>Space makes big ideas simple</h2>
+          <p>Better Atoms explores how energy, technology, and sustainability function in space environments. Through digital learning content and interactive platforms, learners discover how solar, kinetic, chemical, and thermal energy power spaceships, habitats, and future space infrastructure. Space becomes the lens through which complex ideas are made engaging, intuitive, and memorable.</p>
+
+          <div class="two-col" style="margin-top:2.5rem;">
+            <div class="card-night">
+              <h3>Beyond the screen</h3>
+              <p style="margin-bottom:0;">Beyond digital education, Better Atoms extends into the physical world through a space-age alien restaurant. It serves as a living showcase of how clean technology can support futuristic concepts while serving delicious space food. Renewable energy systems, efficient resource use, and sustainable design are integrated into the restaurant experience, turning dining into discovery.</p>
+            </div>
+            <div class="card-night">
+              <h3>Learning you can hold</h3>
+              <p style="margin-bottom:0;">Better Atoms also develops EdTech toys and modular learning kits inspired by space systems and renewable technology. These sustainable products allow learners to explore engineering concepts through play, building, and experimentation beyond the screen.</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div id="visualizer" class="lg:col-span-6">
-          <div class="relative rounded-2xl glass-panel neon-border-cyan overflow-hidden reflective-stage">
-            
-            <!-- Top HUD Overlay -->
-            <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-b border-white/10 bg-obsidian/70 backdrop-blur-md">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-atomCyan animate-pulse"></span>
-                <span class="font-mono text-xs uppercase tracking-wider text-slate-300" id="hud-title">
-                  MODE 01 // REFLECTIVE MOLECULAR LATTICE
-                </span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <button onclick="switchLabMode('molecular')" id="btn-mode-molecular" class="px-2.5 py-1 rounded-lg text-xs font-mono bg-atomCyan text-obsidian font-semibold transition">
-                  🧬 Molecular
-                </button>
-                <button onclick="switchLabMode('reactor')" id="btn-mode-reactor" class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/10 text-slate-300 hover:bg-white/20 transition">
-                  ⚡ Energy Core
-                </button>
-                <button onclick="switchLabMode('cosmic')" id="btn-mode-cosmic" class="px-2.5 py-1 rounded-lg text-xs font-mono bg-white/10 text-slate-300 hover:bg-white/20 transition">
-                  🌌 Cosmic Scale
-                </button>
-              </div>
-            </div>
+      <!-- What we're building (night) -->
+      <section class="world-night" style="padding-top:1rem;">
+        <div class="container">
+          <h2>What we're building</h2>
 
-            <!-- 3D WebGL Canvas Container -->
-            <div class="relative w-full h-[420px] sm:h-[460px] cursor-grab active:cursor-grabbing" id="three-canvas-container">
-              <!-- Live Telemetry Floating Badges -->
-              <div class="pointer-events-none absolute top-3 left-3 z-10 space-y-1 font-mono text-[11px] bg-obsidian/75 border border-white/10 rounded-lg px-3 py-2 text-slate-300">
-                <div>SCALE: <span id="telemetry-scale" class="text-atomCyan">10⁻¹⁰ m (Atomic Bond)</span></div>
-                <div>ENERGY FLUX: <span id="telemetry-flux" class="text-atomEmerald">4.82 eV / Photon</span></div>
-                <div>STATE: <span id="telemetry-state" class="text-atomAmber">Coherent Orbital</span></div>
-              </div>
-
-              <div class="pointer-events-none absolute bottom-3 right-3 z-10 font-mono text-[11px] bg-obsidian/75 border border-white/10 rounded-lg px-2.5 py-1 text-slate-400">
-                Drag to Orbit &bull; Use Sliders to Excite
-              </div>
-            </div>
-
-            <!-- Bottom Interactive Parameter Controls -->
-            <div class="p-4 border-t border-white/10 bg-obsidian/85 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="mission-board">
+            <!-- Big tile: 2 columns x 2 rows on desktop -->
+            <article class="card-night mission-tile-large">
               <div>
-                <div class="flex justify-between text-xs font-mono mb-1.5">
-                  <span class="text-slate-400">QUANTUM EXCITATION / SPEED</span>
-                  <span id="label-excitation" class="text-atomCyan">1.0x</span>
+                <div class="frame-3d tilt-frame" style="margin-bottom:1.5rem;">
+                  <img
+                    src="assets/services/gamified-stem-platform-1200x900.webp"
+                    alt="[TO FILL: alt text from ASSET_MAP.md for Gamified STEM Learning Platform]"
+                    width="1200"
+                    height="900"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/gamified-stem-platform-1200x900.webp</span></div>'"
+                  >
                 </div>
-                <input type="range" id="slider-excitation" min="0.2" max="3.0" step="0.1" value="1.0" class="w-full" oninput="updateExcitation(this.value)" />
+                <h3>Gamified STEM Learning Platform</h3>
+                <p>A browser-based sci-fi simulation where students learn engineering and renewable energy concepts through puzzles, systems design, and experimentation.</p>
               </div>
               <div>
-                <div class="flex justify-between text-xs font-mono mb-1.5">
-                  <span class="text-slate-400">SCALE / HARMONIC COMPLEXITY</span>
-                  <span id="label-harmonic" class="text-atomEmerald">Level 3</span>
-                </div>
-                <input type="range" id="slider-harmonic" min="1" max="5" step="1" value="3" class="w-full" oninput="updateHarmonic(this.value)" />
+                <a href="games.html" onclick="return switchPage('games', event)" class="btn btn-secondary-night btn-sm">Explore games</a>
               </div>
-            </div>
+            </article>
 
+            <!-- Sealed capsule 1: Space Restaurant: UFO CRASH -->
+            <article class="card-night capsule-sealed">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img
+                  src="assets/services/ufo-crash-restaurant-1200x900.webp"
+                  alt="[TO FILL: alt text from ASSET_MAP.md for Space Restaurant: UFO CRASH]"
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/ufo-crash-restaurant-1200x900.webp</span></div>'"
+                >
+              </div>
+              <span class="badge-gold">Coming soon</span>
+              <h3>Space Restaurant: UFO CRASH</h3>
+              <p>An alien space-and-time restro where learners run a futuristic space restaurant, managing power generation, storage, and efficiency to keep operations running. This scenario teaches real-world energy optimization, resource management, and systems thinking in a fun, practical context, plus amazing space food.</p>
+              <a href="space-restaurant.html" onclick="return switchPage('restaurant', event)">About the restaurant</a>
+            </article>
+
+            <!-- Medium tile: Renewable Energy Education -->
+            <article class="card-night">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img
+                  src="assets/services/renewable-energy-education-1200x900.webp"
+                  alt="[TO FILL: alt text from ASSET_MAP.md for Renewable Energy Education]"
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/renewable-energy-education-1200x900.webp</span></div>'"
+                >
+              </div>
+              <h3>Renewable Energy Education</h3>
+              <p style="margin-bottom:0;">Interactive experiences built around clean energy principles, helping students understand how energy is generated, stored, distributed, and used.</p>
+            </article>
+
+            <!-- Sealed capsule 2: Modular Hardware Kits -->
+            <article class="card-night capsule-sealed">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img
+                  src="assets/services/modular-hardware-kits-1200x900.webp"
+                  alt="[TO FILL: alt text from ASSET_MAP.md for Modular Hardware Kits]"
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/modular-hardware-kits-1200x900.webp</span></div>'"
+                >
+              </div>
+              <span class="badge-gold">Coming soon</span>
+              <h3>Modular Hardware Kits</h3>
+              <p>Sustainable, modular kits that extend digital learning into the physical world, allowing students to build and test real systems inspired by the game.</p>
+              <a href="edtech.html" onclick="return switchPage('edtech', event)">About our kits</a>
+            </article>
+
+            <!-- Medium tile: Educational Partnerships -->
+            <article class="card-night" style="grid-column: span 2;">
+              <div class="two-col" style="align-items:center;">
+                <div class="frame-3d tilt-frame">
+                  <img
+                    src="assets/services/educational-partnerships-1200x900.webp"
+                    alt="[TO FILL: alt text from ASSET_MAP.md for Educational Partnerships]"
+                    width="1200"
+                    height="900"
+                    loading="lazy"
+                    decoding="async"
+                    onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/educational-partnerships-1200x900.webp</span></div>'"
+                  >
+                </div>
+                <div>
+                  <h3>Educational Partnerships</h3>
+                  <p>Collaborations with schools and institutions to integrate engaging, future-ready STEM learning into classrooms and programs.</p>
+                  <a href="mailto:contactus@betteratoms.com?subject=Partnership">Email us about a partnership</a>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
+      </section>
 
+      <!-- Cloud divider from Night to Sky (flipped with scaleY(-1)) -->
+      <div class="cloud-divider cloud-divider--night-to-sky" aria-hidden="true">
+        <img
+          src="assets/ui/cloud-divider-1920x260.png"
+          alt=""
+          width="1920"
+          height="260"
+          loading="lazy"
+          decoding="async"
+          onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,260 L0,140 Q160,30 340,130 T700,110 T1080,140 T1480,100 T1920,135 L1920,260 Z\' fill=\'#8FD3FF\'/></svg>'"
+        >
       </div>
-    </div>
-  </section>
 
-  <section id="blog-atoms" class="py-20 border-t border-white/10 bg-void/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Section Header & Filter Controls -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-atomEmerald/15 border border-atomEmerald/40 text-atomEmerald font-mono text-xs mb-3">
-            <span class="w-2 h-2 rounded-full bg-atomEmerald animate-ping"></span>
-            <span>COSMIC INTELLIGENCE FEED // LIVE UPDATES</span>
-          </div>
-          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">
-            Blog Atoms: <span class="text-atomCyan">Transmissions from the Frontier</span>
-          </h2>
-          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl">
-            We are a premier digital institution dedicated to visualizing the cosmos and making complex scientific data accessible, immersive, and beautiful.
-          </p>
-        </div>
-
-        <!-- Search & Category Filter -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          <div class="relative">
-            <input
-              type="text"
-              id="blog-search"
-              oninput="renderBlogFeed()"
-              placeholder="Search transmissions (e.g. Webb, Moon)..."
-              class="w-full sm:w-64 px-4 py-2 rounded-xl bg-obsidian border border-white/15 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-atomCyan"
-            />
-          </div>
-          <div class="flex flex-wrap items-center gap-1.5 bg-obsidian p-1 rounded-xl border border-white/10 text-xs font-mono">
-            <button onclick="setBlogCategory('ALL')" id="cat-ALL" class="px-3 py-1.5 rounded-lg bg-atomCyan text-obsidian font-bold transition">All (9)</button>
-            <button onclick="setBlogCategory('Cosmic Research')" id="cat-Cosmic Research" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">🔭 Cosmic</button>
-            <button onclick="setBlogCategory('Micro to Macro')" id="cat-Micro to Macro" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">🧬 Scale</button>
-            <button onclick="setBlogCategory('Future Tech')" id="cat-Future Tech" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">🚀 Future Tech</button>
+      <!-- The book (sky) -->
+      <section class="world-sky">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/books/book-3d-mockup.webp"
+                alt="Paddo and the Trial of Curiosity 3D book cover"
+                width="1000"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:5/6;\'><strong>Paddo and the Trial of Curiosity</strong><span>assets/books/book-3d-mockup.webp</span></div>'"
+              >
+            </div>
+            <div>
+              <h2>Paddo and the Trial of Curiosity</h2>
+              <p>The Space Explorer's Handbook. A read-aloud STEM adventure for ages 6 to 12, by Aman Singh. Book 1 of The Better Atoms Adventures.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;">
+                <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary">Get it on Amazon</a>
+                <a href="books.html" onclick="return switchPage('books', event)" class="btn btn-secondary-sky">See the chapters</a>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
+
+      <!-- Meet the crew (id="crew", sky) -->
+      <section class="world-sky" id="crew" style="padding-top:1rem;">
+        <div class="container">
+          <h2>Meet the crew</h2>
+
+          <div class="frame-3d tilt-frame" style="margin-top:1.5rem;">
+            <picture>
+              <source media="(max-width: 640px)" srcset="assets/home/crew-backyard-1080x1350.webp">
+              <img
+                src="assets/home/crew-backyard-1920x1080.webp"
+                alt="Paddo, Spark, Leo and Maya with the Starhopper in Leo's backyard"
+                width="1920"
+                height="1080"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><strong>Paddo, Spark, Leo &amp; Maya in the backyard</strong><span>assets/home/crew-backyard-1920x1080.webp</span></div>'"
+              >
+            </picture>
+          </div>
+
+          <div class="crew-grid">
+            <article class="card-sky crew-card">
+              <div class="crew-cutout-wrap">
+                <img
+                  src="assets/characters/paddo-waving.png"
+                  alt="Paddo"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                  class="char-cutout"
+                  onerror="this.outerHTML='<div class=\'char-cutout\' style=\'width:84px;height:84px;border-radius:50%;background:#9BD13C;border:3px solid #1B1446;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Paddo</div>'"
+                >
+              </div>
+              <h3>Paddo</h3>
+              <p style="margin-bottom:0;">Alien pilot and captain of the Starhopper. Overly confident, very expressive, makes messy mistakes, and loves to learn.</p>
+            </article>
+
+            <article class="card-sky crew-card">
+              <div class="crew-cutout-wrap">
+                <img
+                  src="assets/characters/spark-happy.png"
+                  alt="Spark"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                  class="char-cutout"
+                  onerror="this.outerHTML='<div class=\'char-cutout\' style=\'width:84px;height:84px;border-radius:50%;background:#4FE3FF;border:3px solid #1B1446;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Spark</div>'"
+                >
+              </div>
+              <h3>Spark</h3>
+              <p style="margin-bottom:0;">Paddo's AI co-pilot. Loves rules, hates messes, often panicked.</p>
+            </article>
+
+            <article class="card-sky crew-card">
+              <div class="crew-cutout-wrap">
+                <img
+                  src="assets/characters/leo.png"
+                  alt="Leo"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                  class="char-cutout"
+                  onerror="this.outerHTML='<div class=\'char-cutout\' style=\'width:84px;height:84px;border-radius:50%;background:#FFB347;border:3px solid #1B1446;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Leo</div>'"
+                >
+              </div>
+              <h3>Leo</h3>
+              <p style="margin-bottom:0;">Earth boy and hands-on tinkerer who fixes things and learns by doing.</p>
+            </article>
+
+            <article class="card-sky crew-card">
+              <div class="crew-cutout-wrap">
+                <img
+                  src="assets/characters/maya.png"
+                  alt="Maya"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                  class="char-cutout"
+                  onerror="this.outerHTML='<div class=\'char-cutout\' style=\'width:84px;height:84px;border-radius:50%;background:#4536A3;border:3px solid #FFF8EC;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#FFF6E6;\'>Maya</div>'"
+                >
+              </div>
+              <h3>Maya</h3>
+              <p style="margin-bottom:0;">Earth girl and the voice of reason: book-smart and logical.</p>
+            </article>
+          </div>
+
+          <p style="margin-top:2rem;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.25rem;">Their spaceship, the Starhopper, is about as long as a school bus.</p>
+        </div>
+      </section>
+
+      <!-- Cloud divider from Sky back into Night -->
+      <div class="cloud-divider" aria-hidden="true">
+        <img
+          src="assets/ui/cloud-divider-1920x260.png"
+          alt=""
+          width="1920"
+          height="260"
+          loading="lazy"
+          decoding="async"
+          onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,0 L0,120 Q160,230 340,130 T700,150 T1080,120 T1480,160 T1920,125 L1920,0 Z\' fill=\'#E6F6FF\'/></svg>'"
+        >
       </div>
 
-      <!-- Dynamic Blog Cards Grid -->
-      <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Populated dynamically with all 9 October 2026 Better Atoms posts -->
-      </div>
-
-    </div>
-  </section>
-
-  <section id="restaurant" class="py-20 border-t border-white/10 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        
-        <!-- Left Description: Space Restaurant UFO CRASH -->
-        <div class="lg:col-span-5 space-y-5">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-atomAmber/15 border border-atomAmber/40 text-atomAmber font-mono text-xs">
-            <span>ALIEN SPACE &amp; TIME RESTRO // INTERACTIVE SCENARIO</span>
-          </div>
-          <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">
-            Space Restaurant: <span class="text-atomAmber">UFO CRASH</span>
-          </h2>
-          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-            Beyond digital education, Better Atoms extends into the physical world through a space-age alien restaurant. It serves as a living showcase of how clean technology can support futuristic concepts while serving delicious molecular gastronomy space food.
-          </p>
-          <p class="text-slate-400 text-sm leading-relaxed">
-            In <strong class="text-white">UFO CRASH</strong>, learners run a futuristic space restaurant—managing power generation, storage, and efficiency to keep operations running. Test the live energy dispatch simulator to balance <span class="text-atomAmber">Solar</span>, <span class="text-atomCyan">Kinetic</span>, <span class="text-atomEmerald">Chemical</span>, and <span class="text-atomRose">Thermal</span> systems!
-          </p>
-
-          <div class="p-4 rounded-xl glass-panel border-l-4 border-l-atomEmerald space-y-1.5">
-            <div class="font-mono text-xs text-atomEmerald uppercase">Mission Objective</div>
-            <div class="text-sm text-slate-200">
-              Maintain at least <strong>120 kW</strong> of clean output with <strong>&ge; 85% grid efficiency</strong> to power the Plasma Kitchen, Astro-Hydroponics, and Gravity Plating simultaneously.
+      <!-- Our community (night) -->
+      <section class="world-night">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <h2>Our community</h2>
+              <p>Better Atoms is built by, and for, a community of developers, educators, and creators who believe learning should be practical, playful, and purposeful.</p>
+              <p>As developers, we design interactive systems and simulations that make complex energy concepts intuitive and engaging. As educators, we focus on pedagogy, learning outcomes, and accessibility, ensuring that every experience supports real understanding. As creators, we craft immersive worlds, stories, and hands-on experiences that make STEM education memorable and fun.</p>
+              <p>Our community includes students exploring engineering for the first time, teachers bringing innovation into their classrooms, and builders contributing ideas, feedback, and experimentation. Learning happens collaboratively, through curiosity, iteration, and shared problem-solving.</p>
+              <p style="margin-bottom:0;">Together, we are creating an ecosystem where education, technology, and sustainability come together, preparing learners not just to study the future, but to build it.</p>
             </div>
-          </div>
-        </div>
-
-        <!-- Right Interactive Simulator Dashboard -->
-        <div class="lg:col-span-7">
-          <div class="rounded-2xl glass-panel p-6 sm:p-8 border border-atomCyan/25 space-y-6">
-            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-4">
-              <div>
-                <span class="font-mono text-xs text-slate-400 block">LIVE TELEMETRY // SECTOR 7 DINING DOME</span>
-                <h3 class="font-display font-bold text-xl text-white">UFO CRASH Microgrid Controller</h3>
-              </div>
-              <div id="ufo-status-badge" class="px-3.5 py-1.5 rounded-full bg-atomEmerald/20 border border-atomEmerald/50 text-atomEmerald font-mono text-xs font-bold">
-                ● GRID OPTIMAL (132 kW)
-              </div>
-            </div>
-
-            <!-- 4 Energy Sliders (Solar, Kinetic, Chemical, Thermal) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <!-- Solar -->
-              <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-display font-semibold text-sm text-atomAmber">☀️ Solar Photovoltaic Array</span>
-                  <span id="val-solar" class="font-mono text-xs text-white">45 kW</span>
-                </div>
-                <input type="range" id="sim-solar" min="0" max="60" value="45" class="w-full" oninput="updateUfoSim()" />
-                <p class="text-[11px] text-slate-400 mt-1.5">Zero-emission orbital collectors (High efficiency)</p>
-              </div>
-
-              <!-- Kinetic -->
-              <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-display font-semibold text-sm text-atomCyan">🌀 Kinetic Flywheel &amp; Footfalls</span>
-                  <span id="val-kinetic" class="font-mono text-xs text-white">32 kW</span>
-                </div>
-                <input type="range" id="sim-kinetic" min="0" max="50" value="32" class="w-full" oninput="updateUfoSim()" />
-                <p class="text-[11px] text-slate-400 mt-1.5">Regenerative momentum storage &amp; diner floor tiles</p>
-              </div>
-
-              <!-- Chemical -->
-              <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-display font-semibold text-sm text-atomEmerald">🧪 Green Hydrogen Fuel Cells</span>
-                  <span id="val-chemical" class="font-mono text-xs text-white">35 kW</span>
-                </div>
-                <input type="range" id="sim-chemical" min="0" max="60" value="35" class="w-full" oninput="updateUfoSim()" />
-                <p class="text-[11px] text-slate-400 mt-1.5">Closed-loop chemical energy storage &amp; water byproduct</p>
-              </div>
-
-              <!-- Thermal -->
-              <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="flex justify-between items-center mb-2">
-                  <span class="font-display font-semibold text-sm text-atomRose">🔥 Thermoelectric Waste Recovery</span>
-                  <span id="val-thermal" class="font-mono text-xs text-white">20 kW</span>
-                </div>
-                <input type="range" id="sim-thermal" min="0" max="50" value="20" class="w-full" oninput="updateUfoSim()" />
-                <p class="text-[11px] text-slate-400 mt-1.5">Captures kitchen plasma-oven heat gradients</p>
-              </div>
-            </div>
-
-            <!-- Output & Subsystems Bar -->
-            <div class="p-4 rounded-xl bg-obsidian border border-white/10 space-y-3">
-              <div class="flex flex-wrap justify-between gap-2 text-xs font-mono">
-                <span class="text-slate-400">TOTAL HABITAT POWER OUTPUT: <strong id="sim-total-kw" class="text-white">132 kW / 120 kW Required</strong></span>
-                <span class="text-slate-400">SUSTAINABILITY SCORE: <strong id="sim-efficiency" class="text-atomCyan">92%</strong></span>
-              </div>
-              <div class="w-full h-3 rounded-full bg-white/10 overflow-hidden">
-                <div id="sim-progress-bar" class="h-full bg-gradient-to-r from-atomCyan via-atomEmerald to-atomAmber transition-all duration-300" style="width: 88%"></div>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-center font-mono text-[11px]">
-                <div id="sub-kitchen" class="py-1.5 px-2 rounded-lg bg-atomEmerald/15 text-atomEmerald border border-atomEmerald/30">
-                  🍽️ Plasma Kitchen: ONLINE
-                </div>
-                <div id="sub-hydro" class="py-1.5 px-2 rounded-lg bg-atomEmerald/15 text-atomEmerald border border-atomEmerald/30">
-                  🌱 Astro-Hydroponics: ONLINE
-                </div>
-                <div id="sub-gravity" class="py-1.5 px-2 rounded-lg bg-atomEmerald/15 text-atomEmerald border border-atomEmerald/30">
-                  🛸 Gravity Plating: ONLINE
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="books" class="py-20 border-t border-white/10 bg-void/60">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="rounded-3xl glass-panel border border-atomViolet/30 p-8 sm:p-12 relative overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          <!-- Book Visual Emblem -->
-          <div class="lg:col-span-4 flex justify-center">
-            <div class="w-64 h-80 rounded-2xl bg-gradient-to-br from-atomViolet/40 via-obsidian to-atomCyan/30 border-2 border-atomCyan/40 p-6 flex flex-col justify-between shadow-2xl relative group">
-              <div class="flex justify-between items-center font-mono text-[10px] text-atomCyan">
-                <span>BETTER ATOMS SERIES</span>
-                <span>VOL. 01</span>
-              </div>
-              <div class="my-auto text-center space-y-3">
-                <div class="w-20 h-20 mx-auto rounded-full bg-atomEmerald/20 border border-atomEmerald flex items-center justify-center text-4xl shadow-inner">
-                  👽
-                </div>
-                <h3 class="font-display font-bold text-xl text-white leading-snug">
-                  Paddo and the Trial of Curiosity
-                </h3>
-                <p class="text-xs text-slate-300 font-mono">Featuring Paddo &amp; Spark</p>
-              </div>
-              <div class="text-center font-mono text-[10px] text-slate-400 border-t border-white/10 pt-2">
-                BY AMAN SINGH &bull; BETTER ATOMS
-              </div>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/home/community-1600x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Our community]"
+                width="1600"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><span>assets/home/community-1600x900.webp</span></div>'"
+              >
             </div>
           </div>
 
-          <!-- Book Details -->
-          <div class="lg:col-span-8 space-y-5">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-atomViolet/20 border border-atomViolet/40 text-atomViolet font-mono text-xs">
-              <span>STEM LITERATURE &bull; NOW AVAILABLE ON AMAZON KDP</span>
-            </div>
-            <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">
-              Better Atoms: <span class="text-atomCyan">Paddo and the Trial of Curiosity</span>
-            </h2>
-            <p class="text-slate-300 text-base leading-relaxed">
-              Follow <strong class="text-white">Paddo</strong>, a curious green alien explorer, and his robotic co-pilot <strong class="text-atomCyan">Spark</strong> as they defend Earth's creative spirit from the cold bureaucracy of the Universal Accountants. Every chapter turns real physics, atomic structure, and frugal hands-on science experiments into an unforgettable cosmic adventure.
+          <div class="card-night" style="margin-top:3.5rem;text-align:center;">
+            <p style="margin:0 auto;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1.3rem;">
+              Schools, educators and partners: write to us at <a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div class="p-3.5 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="font-mono text-xs text-atomCyan">01 // Narrative STEM</div>
-                <div class="text-xs text-slate-300 mt-1">Blends first-principles physics with cosmic storytelling for young explorers.</div>
-              </div>
-              <div class="p-3.5 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="font-mono text-xs text-atomEmerald">02 // DIY Experiments</div>
-                <div class="text-xs text-slate-300 mt-1">Hands-on activities that kids and classrooms can build with everyday materials.</div>
-              </div>
-              <div class="p-3.5 rounded-xl bg-obsidian/70 border border-white/10">
-                <div class="font-mono text-xs text-atomAmber">03 // Connected Universe</div>
-                <div class="text-xs text-slate-300 mt-1">Links directly into the Better Atoms browser simulations and hardware kits.</div>
-              </div>
-            </div>
-            <div class="pt-2">
-              <button onclick="openBookModal()" class="px-6 py-3 rounded-xl bg-white text-obsidian font-display font-bold text-sm hover:bg-atomCyan transition">
-                Read Interactive Story Dossier &amp; Sample Experiment &rarr;
-              </button>
-            </div>
           </div>
-
         </div>
-      </div>
+      </section>
     </div>
-  </section>
 
-  <section id="edtech" class="py-20 border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      
-      <div class="text-center max-w-3xl mx-auto space-y-3">
-        <div class="font-mono text-xs text-atomCyan uppercase tracking-widest">Our Ecosystem &amp; Services</div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">
-          Built by Developers, Educators, and Creators
-        </h2>
-        <p class="text-slate-400 text-sm sm:text-base">
-          Together, we are creating an ecosystem where space education, renewable ideas, and autonomous AI come together to prepare learners and builders for the future—on Earth and beyond.
-        </p>
-      </div>
-
-      <!-- 4-Card Services Bento Grid from betteratoms.com -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <div class="p-7 rounded-2xl glass-panel glass-panel-hover space-y-3">
-          <div class="w-11 h-11 rounded-xl bg-atomCyan/15 border border-atomCyan/40 flex items-center justify-center text-xl">
-            🎮
-          </div>
-          <h3 class="font-display font-bold text-xl text-white">Gamified STEM Learning Platform</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            A browser-based sci-fi simulation where students learn engineering and renewable energy concepts through puzzles, systems design, and experimentation.
-          </p>
-          <div class="pt-2 font-mono text-xs text-atomCyan">STATUS: Interactive WebGL Module Active Above &uarr;</div>
-        </div>
-
-        <div class="p-7 rounded-2xl glass-panel glass-panel-hover space-y-3">
-          <div class="w-11 h-11 rounded-xl bg-atomEmerald/15 border border-atomEmerald/40 flex items-center justify-center text-xl">
-            🔋
-          </div>
-          <h3 class="font-display font-bold text-xl text-white">Renewable Energy Education</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Interactive experiences built around clean energy principles, helping students understand how solar, kinetic, chemical, and thermal energy are generated, stored, distributed, and used.
-          </p>
-          <div class="pt-2 font-mono text-xs text-atomEmerald">CURRICULUM: Solar &bull; Kinetic &bull; Chemical &bull; Thermal</div>
-        </div>
-
-        <div class="p-7 rounded-2xl glass-panel glass-panel-hover space-y-3">
-          <div class="w-11 h-11 rounded-xl bg-atomAmber/15 border border-atomAmber/40 flex items-center justify-center text-xl">
-            🛠️
-          </div>
-          <h3 class="font-display font-bold text-xl text-white">Modular Hardware Kits <span class="text-xs font-mono text-atomAmber ml-1">[Coming Soon]</span></h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Sustainable, modular kits that extend digital learning into the physical world, allowing students to build and test real renewable energy systems inspired by the simulation.
-          </p>
-          <div class="pt-2 font-mono text-xs text-atomAmber">HARDWARE: Snap-Atom Renewable Micro-Modules</div>
-        </div>
-
-        <div class="p-7 rounded-2xl glass-panel glass-panel-hover space-y-3">
-          <div class="w-11 h-11 rounded-xl bg-atomViolet/15 border border-atomViolet/40 flex items-center justify-center text-xl">
-            🏫
-          </div>
-          <h3 class="font-display font-bold text-xl text-white">Educational Partnerships</h3>
-          <p class="text-slate-300 text-sm leading-relaxed">
-            Collaborations with schools, science centers, and institutions to integrate engaging, future-ready STEM learning and hands-on workshops into classrooms and programs.
-          </p>
-          <div class="pt-2 font-mono text-xs text-atomViolet">CONTACT: contactus@betteratoms.com</div>
-        </div>
-
-      </div>
-
-      <!-- Featured Live App Spotlight: ATOMIC SWARMS on Google Play -->
-      <div id="games" class="rounded-3xl bg-gradient-to-r from-obsidian via-void to-obsidian border border-atomCyan/40 p-8 sm:p-10 neon-border-cyan">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div class="lg:col-span-8 space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-atomCyan/15 border border-atomCyan/40 text-atomCyan font-mono text-xs">
-              <span>LIVE ON GOOGLE PLAY // AUTONOMOUS MULTI-AGENT PLATFORM</span>
+    <div id="page-books" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <h1>Paddo and the Trial of Curiosity</h1>
+              <p class="tagline">The Space Explorer's Handbook</p>
+              <p>A read-aloud STEM adventure for ages 6 to 12. Book 1 of The Better Atoms Adventures. By Aman Singh.</p>
+              <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary">Get it on Amazon</a>
             </div>
-            <h3 class="font-display font-bold text-2xl sm:text-3xl text-white">
-              Atomic Swarms: Five Specialist AI Agents Under Your Command
-            </h3>
-            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Built in India by <strong class="text-white">Better Atoms Technologies LLP</strong>, Atomic Swarms deploys five specialist AI agents—<strong>Coordination, Research, Content, Revenue, and Automation</strong>—that draft, research, plan, generate UPI QR invoices, and analyse operations without ever fabricating results.
-            </p>
-            <div class="flex flex-wrap gap-2 pt-1 font-mono text-xs text-slate-300">
-              <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10">✓ 5 Specialist Agents</span>
-              <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10">✓ Instant Demo Mode</span>
-              <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10">✓ BYO Encrypted Keys</span>
-              <span class="px-3 py-1 rounded-lg bg-white/5 border border-white/10">✓ Auto-Refund Guarantee</span>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/books/books-hero-1920x900.webp"
+                alt="Paddo and the Trial of Curiosity hero illustration"
+                width="1920"
+                height="900"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><span>assets/books/books-hero-1920x900.webp</span></div>'"
+              >
             </div>
           </div>
-          <div class="lg:col-span-4 flex lg:justify-end">
-            <a href="https://play.google.com/store/apps/details?id=better_atoms.atomic_swarms&hl=en_IN" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-2xl bg-gradient-to-r from-atomCyan to-atomEmerald text-obsidian font-display font-bold text-sm uppercase tracking-wider hover:scale-[1.02] transition shadow-xl">
-              <span>Get Atomic Swarms on Google Play</span>
-              <span>&nearr;</span>
-            </a>
+
+          <blockquote style="margin:3.5rem auto 0;max-width:48rem;text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.5rem,2.8vw,2.25rem);color:var(--gold);line-height:1.3;">
+            “To the stargazers, the question-askers, and the future captains of the universe. May your curiosity always be stronger than gravity.”
+          </blockquote>
+        </div>
+      </section>
+
+      <div class="cloud-divider cloud-divider--night-to-sky" aria-hidden="true">
+        <img src="assets/ui/cloud-divider-1920x260.png" alt="" width="1920" height="260" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,260 L0,140 Q160,30 340,130 T700,110 T1080,140 T1480,100 T1920,135 L1920,260 Z\' fill=\'#8FD3FF\'/></svg>'">
+      </div>
+
+      <section class="world-sky">
+        <div class="container">
+          <h2>16 chapters, 16 science ideas</h2>
+          <p>Click any chapter picture to inspect it larger.</p>
+
+          <div class="chapters-grid" id="chapters-grid">
+            <!-- Populated by site.js with the 16 sequenced chapters -->
+          </div>
+
+          <div class="card-sky" style="margin-top:3rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+            <div>
+              <p style="margin:0;font-weight:700;">Every activity in the book needs active adult supervision.</p>
+            </div>
+            <div style="display:flex;align-items:center;gap:1.25rem;">
+              <img
+                src="assets/characters/paddo-waving.png"
+                alt="Paddo waving"
+                width="84"
+                height="84"
+                loading="lazy"
+                decoding="async"
+                class="char-cutout guide-bob"
+                onerror="this.outerHTML='<div class=\'char-cutout guide-bob\' style=\'width:72px;height:72px;border-radius:50%;background:#9BD13C;border:3px solid #1B1446;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Paddo</div>'"
+              >
+              <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary">Get it on Amazon</a>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-    </div>
-  </section>
-
-  <section id="policies" class="py-20 border-t border-white/10 bg-void/70">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div class="font-mono text-xs text-slate-400 uppercase">Doc Reference // Corporate Protocol</div>
-          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white">Privacy, Governance &amp; Corporate Identity</h2>
+      <!-- Accessible Chapter Lightbox Dialog -->
+      <dialog class="chapter-dialog" id="chapter-dialog" aria-labelledby="dialog-chapter-title">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem;">
+          <h3 id="dialog-chapter-title" style="margin:0;">Chapter</h3>
+          <button type="button" class="btn btn-secondary-night btn-sm" id="dialog-close-btn">Close</button>
         </div>
-        <div class="flex flex-wrap gap-2 font-mono text-xs">
-          <button onclick="switchPolicyTab('PRIV-2026')" id="tab-PRIV-2026" class="px-3.5 py-2 rounded-xl bg-atomCyan text-obsidian font-bold transition">PRIV-2026</button>
-          <button onclick="switchPolicyTab('GUID-2026')" id="tab-GUID-2026" class="px-3.5 py-2 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 transition">GUID-2026</button>
-          <button onclick="switchPolicyTab('CORP-LLP')" id="tab-CORP-LLP" class="px-3.5 py-2 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 transition">CORP-LLP</button>
-          <button onclick="switchPolicyTab('COMM-EXT')" id="tab-COMM-EXT" class="px-3.5 py-2 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 transition">COMM-EXT</button>
+        <div class="frame-3d" id="dialog-img-container" style="margin-bottom:1rem;"></div>
+        <p id="dialog-chapter-idea"></p>
+        <div style="display:flex;justify-content:space-between;gap:1rem;">
+          <button type="button" class="btn btn-secondary-night btn-sm" id="dialog-prev-btn">Previous chapter</button>
+          <button type="button" class="btn btn-primary btn-sm" id="dialog-next-btn">Next chapter</button>
         </div>
-      </div>
-
-      <div id="policy-content" class="p-6 sm:p-8 rounded-2xl glass-panel font-sans text-sm text-slate-300 leading-relaxed">
-        <!-- Populated dynamically via switchPolicyTab() -->
-      </div>
+      </dialog>
     </div>
-  </section>
 
-  <footer class="border-t border-white/10 bg-obsidian py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-400">
-      <div class="flex items-center gap-3">
-        <span class="w-2.5 h-2.5 rounded-full bg-atomEmerald"></span>
-        <span>Copyright &copy; 2026 <strong>Better Atoms</strong> - All Rights Reserved. Powered by <strong>Better Atoms Technologies LLP</strong>.</span>
+    <div id="page-games" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <span class="badge-gold">Coming soon</span>
+              <h1>Worlds that teach through play</h1>
+              <p>Better Atoms turns science, math, and technology into playful, story-driven experiences. We don't just teach concepts. We let kids explore, build, experiment, and discover through beautiful worlds and smart games.</p>
+              <p>From space rockets to underwater labs, every experience is designed to make learning feel like play.</p>
+            </div>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/games/games-hero-1920x1080.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Games hero]"
+                width="1920"
+                height="1080"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><span>assets/games/games-hero-1920x1080.webp</span></div>'"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="cloud-divider cloud-divider--night-to-sky" aria-hidden="true">
+        <img src="assets/ui/cloud-divider-1920x260.png" alt="" width="1920" height="260" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,260 L0,140 Q160,30 340,130 T700,110 T1080,140 T1480,100 T1920,135 L1920,260 Z\' fill=\'#8FD3FF\'/></svg>'">
       </div>
-      <div class="flex flex-wrap items-center gap-5 font-mono">
-        <a href="#home" class="hover:text-atomCyan transition">Home</a>
-        <a href="#blog-atoms" class="hover:text-atomCyan transition">Blog Atoms</a>
-        <a href="#restaurant" class="hover:text-atomCyan transition">Restaurant</a>
-        <a href="#games" class="hover:text-atomCyan transition">Games</a>
-        <a href="#policies" class="hover:text-atomCyan transition">Privacy &amp; Policies</a>
-        <a href="mailto:contactus@betteratoms.com" class="text-atomCyan hover:underline">contactus@betteratoms.com</a>
+
+      <section class="world-sky">
+        <div class="container" style="display:flex;flex-direction:column;gap:3.5rem;">
+          <!-- Row 1: picture left -->
+          <div class="two-col" style="align-items:center;">
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/games/safe-learning-1200x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Learning is safe and pressure-free]"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\'><span>assets/games/safe-learning-1200x900.webp</span></div>'"
+              >
+            </div>
+            <div>
+              <h2>Learning is safe and pressure-free</h2>
+              <p>Mistakes are part of the game, helping kids think, try again, and grow.</p>
+            </div>
+          </div>
+
+          <!-- Row 2: picture right -->
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <h2>Abstract ideas become visible</h2>
+              <p>Concepts like atoms, data, and gravity are shown in colorful, playful ways kids can understand.</p>
+            </div>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/games/abstract-ideas-1200x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Abstract ideas become visible]"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\'><span>assets/games/abstract-ideas-1200x900.webp</span></div>'"
+              >
+            </div>
+          </div>
+
+          <!-- Row 3: picture left -->
+          <div class="two-col" style="align-items:center;">
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/games/motivation-high-1200x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Motivation stays high]"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\'><span>assets/games/motivation-high-1200x900.webp</span></div>'"
+              >
+            </div>
+            <div>
+              <h2>Motivation stays high</h2>
+              <p>Levels, rewards, and progress keep kids engaged while they learn naturally.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="cloud-divider" aria-hidden="true">
+        <img src="assets/ui/cloud-divider-1920x260.png" alt="" width="1920" height="260" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,0 L0,120 Q160,230 340,130 T700,150 T1080,120 T1480,160 T1920,125 L1920,0 Z\' fill=\'#E6F6FF\'/></svg>'">
       </div>
+
+      <section class="world-night">
+        <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
+          <div>
+            <h2>Gamified STEM Learning Platform</h2>
+            <p style="margin-bottom:0;">A browser-based sci-fi simulation where students learn engineering and renewable energy concepts through puzzles, systems design, and experimentation.</p>
+          </div>
+          <img
+            src="assets/characters/spark-happy.png"
+            alt="Spark"
+            width="110"
+            height="110"
+            loading="lazy"
+            decoding="async"
+            class="char-cutout guide-bob"
+            onerror="this.outerHTML='<div class=\'char-cutout guide-bob\' style=\'width:88px;height:88px;border-radius:50%;background:#4FE3FF;border:3px solid #FFF6E6;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Spark</div>'"
+          >
+        </div>
+      </section>
+    </div>
+
+    <!-- EdTech (edtech.html) -->
+    <div id="page-edtech" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <h1>EdTech toys and learning kits</h1>
+              <p>Better Atoms also develops EdTech toys and modular learning kits inspired by space systems and renewable technology. These sustainable products allow learners to explore engineering concepts through play, building, and experimentation beyond the screen.</p>
+            </div>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/edtech/edtech-hero-1920x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for EdTech hero]"
+                width="1920"
+                height="900"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><span>assets/edtech/edtech-hero-1920x900.webp</span></div>'"
+              >
+            </div>
+          </div>
+
+          <div class="two-col" style="margin-top:3.5rem;">
+            <article class="card-night capsule-sealed">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img src="assets/services/modular-hardware-kits-1200x900.webp" alt="[TO FILL: alt text from ASSET_MAP.md for Modular Hardware Kits]" width="1200" height="900" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/modular-hardware-kits-1200x900.webp</span></div>'">
+              </div>
+              <span class="badge-gold">Coming soon</span>
+              <h3>Modular Hardware Kits</h3>
+              <p style="margin-bottom:0;">Sustainable, modular kits that extend digital learning into the physical world, allowing students to build and test real systems inspired by the game.</p>
+            </article>
+
+            <article class="card-night">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img src="assets/services/gamified-stem-platform-1200x900.webp" alt="[TO FILL: alt text from ASSET_MAP.md for Gamified STEM Learning Platform]" width="1200" height="900" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/gamified-stem-platform-1200x900.webp</span></div>'">
+              </div>
+              <h3>Gamified STEM Learning Platform</h3>
+              <p style="margin-bottom:0;">A browser-based sci-fi simulation where students learn engineering and renewable energy concepts through puzzles, systems design, and experimentation.</p>
+            </article>
+
+            <article class="card-night">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img src="assets/services/renewable-energy-education-1200x900.webp" alt="[TO FILL: alt text from ASSET_MAP.md for Renewable Energy Education]" width="1200" height="900" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/renewable-energy-education-1200x900.webp</span></div>'">
+              </div>
+              <h3>Renewable Energy Education</h3>
+              <p style="margin-bottom:0;">Interactive experiences built around clean energy principles, helping students understand how energy is generated, stored, distributed, and used.</p>
+            </article>
+
+            <article class="card-night">
+              <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+                <img src="assets/services/educational-partnerships-1200x900.webp" alt="[TO FILL: alt text from ASSET_MAP.md for Educational Partnerships]" width="1200" height="900" loading="lazy" decoding="async" onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/educational-partnerships-1200x900.webp</span></div>'">
+              </div>
+              <h3>Educational Partnerships</h3>
+              <p style="margin-bottom:0;">Collaborations with schools and institutions to integrate engaging, future-ready STEM learning into classrooms and programs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="cloud-divider cloud-divider--night-to-sky" aria-hidden="true">
+        <img src="assets/ui/cloud-divider-1920x260.png" alt="" width="1920" height="260" loading="lazy" decoding="async" onerror="this.outerHTML='<svg viewBox=\'0 0 1920 260\' preserveAspectRatio=\'none\'><rect width=\'1920\' height=\'260\' fill=\'#120B33\'/><path d=\'M0,260 L0,140 Q160,30 340,130 T700,110 T1080,140 T1480,100 T1920,135 L1920,260 Z\' fill=\'#8FD3FF\'/></svg>'">
+      </div>
+
+      <section class="world-sky">
+        <div class="container" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2rem;">
+          <div>
+            <h2>For schools</h2>
+            <p>Collaborations with schools and institutions to integrate engaging, future-ready STEM learning into classrooms and programs.</p>
+            <a href="mailto:contactus@betteratoms.com?subject=Partnership" class="btn btn-primary">Email us about a partnership</a>
+          </div>
+          <img
+            src="assets/characters/leo.png"
+            alt="Leo"
+            width="110"
+            height="110"
+            loading="lazy"
+            decoding="async"
+            class="char-cutout guide-bob"
+            onerror="this.outerHTML='<div class=\'char-cutout guide-bob\' style=\'width:88px;height:88px;border-radius:50%;background:#FFB347;border:3px solid #1B1446;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Leo</div>'"
+          >
+        </div>
+      </section>
+    </div>
+
+    <div id="page-restaurant" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container">
+          <div class="two-col" style="align-items:center;">
+            <div>
+              <span class="badge-gold">Coming soon</span>
+              <h1>Space Restaurant: UFO CRASH</h1>
+              <p>Beyond digital education, Better Atoms extends into the physical world through a space-age alien restaurant. It serves as a living showcase of how clean technology can support futuristic concepts while serving delicious space food. Renewable energy systems, efficient resource use, and sustainable design are integrated into the restaurant experience, turning dining into discovery.</p>
+            </div>
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/restaurant/ufo-crash-hero-1920x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Space Restaurant: UFO CRASH hero]"
+                width="1920"
+                height="900"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/9;\'><span>assets/restaurant/ufo-crash-hero-1920x900.webp</span></div>'"
+              >
+            </div>
+          </div>
+
+          <div class="two-col" style="align-items:center;margin-top:4rem;">
+            <div class="frame-3d tilt-frame">
+              <img
+                src="assets/services/ufo-crash-restaurant-1200x900.webp"
+                alt="[TO FILL: alt text from ASSET_MAP.md for Run the restaurant]"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+                onerror="this.outerHTML='<div class=\'media-art\'><span>assets/services/ufo-crash-restaurant-1200x900.webp</span></div>'"
+              >
+            </div>
+            <div>
+              <h2>Run the restaurant</h2>
+              <p>An alien space-and-time restro where learners run a futuristic space restaurant, managing power generation, storage, and efficiency to keep operations running. This scenario teaches real-world energy optimization, resource management, and systems thinking in a fun, practical context, plus amazing space food.</p>
+              <p>Questions? Write to <a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a>.</p>
+              <div style="margin-top:1.5rem;">
+                <img
+                  src="assets/characters/starhopper.png"
+                  alt="The Starhopper spaceship"
+                  width="180"
+                  height="110"
+                  loading="lazy"
+                  decoding="async"
+                  class="char-cutout guide-drift"
+                  onerror="this.outerHTML='<div class=\'char-cutout guide-drift\' style=\'display:inline-flex;padding:0.6rem 1.2rem;border-radius:999px;background:#241A5E;border:2px solid #4FE3FF;font-family:Fredoka,sans-serif;font-weight:700;color:#FFF6E6;\'>🛸 Starhopper (8s hover drift)</div>'"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Blog Atoms (blog.html) -->
+    <div id="page-blog" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container">
+          <div class="frame-3d tilt-frame" style="margin-bottom:2rem;">
+            <img
+              src="assets/blog/blog-header-1920x600.webp"
+              alt="[TO FILL: alt text from ASSET_MAP.md for Blog Atoms header]"
+              width="1920"
+              height="600"
+              decoding="async"
+              onerror="this.outerHTML='<div class=\'media-art\' style=\'aspect-ratio:16/5;\'><span>assets/blog/blog-header-1920x600.webp</span></div>'"
+            >
+          </div>
+          <h1>Blog Atoms</h1>
+          <p>Stories and ideas from Better Atoms.</p>
+
+          <!-- 8 cards, 2 per row on desktop, no dates -->
+          <div class="two-col" id="blog-cards-grid" style="margin-top:2.5rem;">
+            <!-- Populated by site.js -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Blog Post View (blog/<slug>.html) -->
+    <div id="page-post" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container" style="max-width:52rem;">
+          <div class="frame-3d tilt-frame" id="post-hero-frame" style="margin-bottom:2rem;"></div>
+          <h1 id="post-view-title">Meet Paddo</h1>
+          <div class="card-night" id="post-view-body" style="margin-block:2rem;">
+            <p><span class="placeholder-bracket">[TO FILL: paste this post's text from the live blog]</span></p>
+          </div>
+          <a href="blog.html" onclick="return switchPage('blog', event)" class="btn btn-primary">Back to Blog Atoms</a>
+        </div>
+      </section>
+    </div>
+
+    <div id="page-privacy" class="page-view" hidden>
+      <section class="world-night">
+        <div class="container" style="max-width:52rem;">
+          <h1>Privacy &amp; policies</h1>
+          <p class="badge-gold">Draft for review. Not yet approved by Better Atoms.</p>
+
+          <div class="card-night" style="display:flex;flex-direction:column;gap:1.5rem;margin-top:1.5rem;">
+            <div>
+              <h2>Who we are</h2>
+              <p style="margin-bottom:0;">Better Atoms Technologies LLP, <a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a>.</p>
+            </div>
+            <div>
+              <h2>What this website collects</h2>
+              <p style="margin-bottom:0;">Nothing. There are no accounts, forms, cookies, analytics or tracking.</p>
+            </div>
+            <div>
+              <h2>Links to other sites</h2>
+              <p style="margin-bottom:0;">The Amazon book link follows Amazon's own policies.</p>
+            </div>
+            <div>
+              <h2>Children</h2>
+              <p style="margin-bottom:0;">We do not knowingly collect personal information from anyone, including children.</p>
+            </div>
+            <div>
+              <h2>Changes</h2>
+              <p style="margin-bottom:0;">This page will be updated if that changes.</p>
+            </div>
+            <div>
+              <h2>Questions</h2>
+              <p style="margin-bottom:0;"><a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 404 (404.html) -->
+    <div id="page-404" class="page-view" hidden>
+      <section class="world-night" style="text-align:center;">
+        <div class="container" style="max-width:42rem;">
+          <div style="margin-bottom:1.5rem;">
+            <img
+              src="https://betteratoms2190.github.io/betteratoms-preview/assets/characters/paddo-standing.png"
+              alt="Paddo standing in space"
+              width="160"
+              height="160"
+              decoding="async"
+              class="char-cutout"
+              onerror="this.outerHTML='<div class=\'char-cutout\' style=\'width:120px;height:120px;margin:0 auto;border-radius:50%;background:#9BD13C;border:4px solid #FFF6E6;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:700;color:#120B33;\'>Paddo</div>'"
+            >
+          </div>
+          <h1>This page drifted into a black hole</h1>
+          <p style="margin-inline:auto;">The link may be old or mistyped.</p>
+          <a href="https://betteratoms2190.github.io/betteratoms-preview/index.html" onclick="return switchPage('home', event)" class="btn btn-primary">Back to home</a>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Site Footer (night) -->
+  <footer class="site-footer">
+    <div class="container">
+      <a href="index.html" onclick="return switchPage('home', event)" class="brand-logo-link">
+        <img
+          src="assets/brand/better-atoms-logo-256.png"
+          alt="Better Atoms"
+          width="48"
+          height="48"
+          loading="lazy"
+          decoding="async"
+          class="brand-logo"
+          onerror="this.outerHTML='<span class=\'brand-logo\' style=\'display:inline-flex;align-items:center;justify-content:center;font-size:0.62rem;text-align:center;line-height:1.05;color:#FFF6E6;font-weight:700;\'>BETTER<br>ATOMS</span>'"
+        >
+        <span>Better Atoms</span>
+      </a>
+
+      <ul class="footer-links">
+        <li><a href="index.html" onclick="return switchPage('home', event)">Home</a></li>
+        <li><a href="books.html" onclick="return switchPage('books', event)">Books</a></li>
+        <li><a href="games.html" onclick="return switchPage('games', event)">Games</a></li>
+        <li><a href="edtech.html" onclick="return switchPage('edtech', event)">EdTech</a></li>
+        <li><a href="space-restaurant.html" onclick="return switchPage('restaurant', event)">Space Restaurant</a></li>
+        <li><a href="blog.html" onclick="return switchPage('blog', event)">Blog Atoms</a></li>
+        <li><a href="privacy.html" onclick="return switchPage('privacy', event)">Privacy &amp; policies</a></li>
+      </ul>
+
+      <p>Write to us: <a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a></p>
+      <p style="margin-bottom:0.25rem;">&copy; 2026 Better Atoms. All rights reserved.</p>
+      <p style="margin-bottom:0;opacity:0.85;">Powered by Better Atoms Technologies LLP</p>
     </div>
   </footer>
 
-  <!-- MODAL: TRANSMISSION & BOOK DOSSIER READER -->
-  <div id="dossier-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-    <div class="relative w-full max-w-2xl rounded-2xl glass-panel border border-atomCyan/40 p-6 sm:p-8 max-h-[85vh] overflow-y-auto space-y-5">
-      <div class="flex items-center justify-between border-b border-white/10 pb-4">
-        <span id="modal-tag" class="font-mono text-xs text-atomCyan uppercase tracking-wider">COSMIC TRANSMISSION</span>
-        <button onclick="closeModal()" class="px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-mono text-white">ESC / CLOSE &times;</button>
-      </div>
-      <h3 id="modal-title" class="font-display font-bold text-2xl text-white"></h3>
-      <div id="modal-meta" class="font-mono text-xs text-slate-400"></div>
-      <div id="modal-body" class="text-slate-200 text-sm sm:text-base leading-relaxed space-y-4"></div>
+  <!-- Interactive Page Switcher & Complete GitHub Pages Repo (.zip) Exporter -->
+  <aside class="preview-dock" aria-label="Preview navigation and GitHub Pages export">
+    <div class="preview-dock-pages">
+      <strong style="font-family:'Fredoka',sans-serif;color:var(--gold);margin-right:0.25rem;">Preview pages:</strong>
+      <button type="button" class="preview-tab is-active" data-preview-btn="home" onclick="switchPage('home')">Home</button>
+      <button type="button" class="preview-tab" data-preview-btn="books" onclick="switchPage('books')">Books (16 ch)</button>
+      <button type="button" class="preview-tab" data-preview-btn="games" onclick="switchPage('games')">Games</button>
+      <button type="button" class="preview-tab" data-preview-btn="edtech" onclick="switchPage('edtech')">EdTech</button>
+      <button type="button" class="preview-tab" data-preview-btn="restaurant" onclick="switchPage('restaurant')">UFO CRASH</button>
+      <button type="button" class="preview-tab" data-preview-btn="blog" onclick="switchPage('blog')">Blog Atoms</button>
+      <button type="button" class="preview-tab" data-preview-btn="privacy" onclick="switchPage('privacy')">Privacy</button>
+      <button type="button" class="preview-tab" data-preview-btn="404" onclick="switchPage('404')">404</button>
     </div>
-  </div>
-
-  <!-- TOAST NOTIFICATION BANNER -->
-  <div id="toast-banner" class="fixed bottom-5 right-5 z-50 hidden px-4 py-3 rounded-xl glass-panel border border-atomCyan/50 text-xs font-mono text-white shadow-2xl">
-    <span id="toast-message">Action completed.</span>
-  </div>
+    <div style="display:flex;align-items:center;gap:0.5rem;">
+      <button type="button" class="btn btn-primary btn-sm" onclick="exportFullGitHubPagesZip()">Download GitHub Pages Repo (.zip)</button>
+    </div>
+  </aside>
 
   <script>
-    function showToast(message) {
-      const toast = document.getElementById('toast-banner');
-      const msgEl = document.getElementById('toast-message');
-      if (!toast || !msgEl) return;
-      msgEl.textContent = message;
-      toast.classList.remove('hidden');
-      setTimeout(() => {
-        toast.classList.add('hidden');
-      }, 4000);
+    /* ==========================================================================
+       Better Atoms Vanilla JS (js/site.js)
+       ========================================================================== */
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const portraitQuery = window.matchMedia('(max-aspect-ratio: 4/5)');
+
+    // 1. Exact Black Hole Centre on Screen Function (from Section 4 of Aman's prompt)
+    function holeOnScreen(box, portrait) {
+      const [vw, vh] = portrait ? [720, 1280] : [1920, 1080];
+      const [fx, fy] = portrait ? [0.50, 0.33] : [0.635, 0.47];
+      const [px, py] = portrait ? [0.50, 0.35] : [0.70, 0.50]; // object-position
+      const s = Math.max(box.width / vw, box.height / vh);
+      const dw = vw * s, dh = vh * s;
+      const left = (box.width - dw) * px, top = (box.height - dh) * py;
+      return { x: left + fx * dw, y: top + fy * dh, shadow: (portrait ? 107 : 158) * s };
     }
 
-    function generateCleanProductionHTML() {
-      const clone = document.documentElement.cloneNode(true);
-      // Remove the top exporter utility bar so the downloaded file is 100% clean for GitHub Pages
-      const exporterBar = clone.querySelector('#github-pages-exporter');
-      if (exporterBar) exporterBar.remove();
+    // 2. Hero Video, Sparkles Canvas, Parallax & Scroll Dive Controller
+    let heroPaused = false;
+    let heroVisible = true;
+    let videoLoadedOk = false;
+    let holeCoords = { x: 600, y: 400, shadow: 158 };
+    let sparkles = [];
+    let twinkleStars = [];
+    let pointerTarget = { x: 0, y: 0 };
+    let pointerCurrent = { x: 0, y: 0 };
 
-      // Remove any dynamically injected Three.js WebGL canvas inside #three-canvas-container
-      const canvasContainer = clone.querySelector('#three-canvas-container');
-      if (canvasContainer) {
-        const canvases = canvasContainer.querySelectorAll('canvas');
-        canvases.forEach(c => c.remove());
+    function initHeroVideo() {
+      const video = document.getElementById('hero-video');
+      if (!video) return;
+
+      const isPortrait = portraitQuery.matches;
+      const posterPath = isPortrait
+        ? 'assets/home/blackhole-poster-mobile.webp'
+        : 'assets/home/blackhole-poster-desktop.webp';
+      const webmPath = isPortrait
+        ? 'assets/home/blackhole-loop-mobile.webm'
+        : 'assets/home/blackhole-loop-desktop.webm';
+      const mp4Path = isPortrait
+        ? 'assets/home/blackhole-loop-mobile.mp4'
+        : 'assets/home/blackhole-loop-desktop.mp4';
+
+      video.poster = posterPath;
+
+      if (prefersReducedMotion.matches) {
+        return; // Show poster only under reduced motion
       }
 
-      // Hide toast banner in serialized snapshot
-      const toast = clone.querySelector('#toast-banner');
-      if (toast) toast.classList.add('hidden');
+      video.innerHTML = '';
+      const srcWebm = document.createElement('source');
+      srcWebm.src = webmPath;
+      srcWebm.type = 'video/webm';
+      const srcMp4 = document.createElement('source');
+      srcMp4.src = mp4Path;
+      srcMp4.type = 'video/mp4';
 
-      return '<!DOCTYPE html>\n' + clone.outerHTML;
-    }
+      video.appendChild(srcWebm);
+      video.appendChild(srcMp4);
 
-    function downloadCleanHTML(filename) {
+      video.addEventListener('loadeddata', () => {
+        videoLoadedOk = true;
+      });
+
       try {
-        const htmlContent = generateCleanProductionHTML();
-        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename || 'index.html';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => URL.revokeObjectURL(url), 1500);
-        showToast(`✅ Downloaded clean ${filename} ready for GitHub Pages!`);
-      } catch (err) {
-        showToast('⚠️ Download blocked by sandbox. Use Copy Clean Source instead.');
+        video.load();
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            // Silent catch per spec: poster/procedural canvas stays
+          });
+        }
+      } catch (_) {}
+    }
+
+    function updateHoleGeometry() {
+      const media = document.getElementById('hero-media');
+      const canvas = document.getElementById('hero-sparkles');
+      if (!media || !canvas) return;
+
+      const box = media.getBoundingClientRect();
+      const isPortrait = portraitQuery.matches;
+      holeCoords = holeOnScreen(box, isPortrait);
+
+      media.style.setProperty('--hole-x', `${holeCoords.x.toFixed(1)}px`);
+      media.style.setProperty('--hole-y', `${holeCoords.y.toFixed(1)}px`);
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(box.width * dpr));
+      canvas.height = Math.max(1, Math.floor(box.height * dpr));
+
+      initSparklesParticles(box.width, box.height, isPortrait);
+    }
+
+    function initSparklesParticles(width, height, isPortrait) {
+      const count = isPortrait ? 70 : 140;
+      const palette = ['#FFD27A', '#4FE3FF', '#C8F07A', '#FFFFFF'];
+      sparkles = [];
+
+      for (let i = 0; i < count; i++) {
+        sparkles.push(spawnSparkle(palette));
+      }
+
+      // 60 twinkling stars kept out of the text column
+      twinkleStars = [];
+      for (let i = 0; i < 60; i++) {
+        let sx = Math.random() * width;
+        let sy = Math.random() * height;
+        // Keep out of left text column on landscape or bottom third on portrait
+        if (!isPortrait && sx < width * 0.44 && sy > height * 0.2 && sy < height * 0.8) {
+          sx = width * 0.45 + Math.random() * (width * 0.52);
+        } else if (isPortrait && sy > height * 0.64) {
+          sy = Math.random() * (height * 0.6);
+        }
+        twinkleStars.push({
+          x: sx,
+          y: sy,
+          r: 0.8 + Math.random() * 1.3,
+          period: 2000 + Math.random() * 3000,
+          phase: Math.random() * Math.PI * 2
+        });
       }
     }
 
-    function copyCleanHTML() {
-      try {
-        const htmlContent = generateCleanProductionHTML();
-        const tempArea = document.createElement('textarea');
-        tempArea.value = htmlContent;
-        tempArea.style.position = 'fixed';
-        tempArea.style.left = '-9999px';
-        document.body.appendChild(tempArea);
-        tempArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempArea);
-        showToast('📋 Clean GitHub Pages HTML copied to clipboard!');
-      } catch (err) {
-        showToast('⚠️ Unable to copy automatically.');
+    function spawnSparkle(palette) {
+      const shadow = Math.max(40, holeCoords.shadow);
+      const r = shadow * (2.5 + Math.random() * 3.5);
+      return {
+        r,
+        angle: Math.random() * Math.PI * 2,
+        size: 1 + Math.random() * 1.5,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        alpha: 0.25 + Math.random() * 0.75
+      };
+    }
+
+    function renderHeroFrame(now) {
+      requestAnimationFrame(renderHeroFrame);
+      if (prefersReducedMotion.matches || heroPaused || !heroVisible || document.hidden) return;
+
+      const canvas = document.getElementById('hero-sparkles');
+      const media = document.getElementById('hero-media');
+      if (!canvas || !media) return;
+
+      const ctx = canvas.getContext('2d');
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const width = canvas.width / dpr;
+      const height = canvas.height / dpr;
+
+      ctx.save();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, width, height);
+
+      // Smooth pointer parallax lerp (0.08 per frame, desktop only)
+      pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * 0.08;
+      pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * 0.08;
+
+      const copyEl = document.getElementById('hero-copy');
+      const videoEl = document.getElementById('hero-video');
+      if (copyEl && videoEl) {
+        copyEl.style.setProperty('--txt-px', `${(-pointerCurrent.x * 10).toFixed(2)}px`);
+        copyEl.style.setProperty('--txt-py', `${(-pointerCurrent.y * 10).toFixed(2)}px`);
+        canvas.style.setProperty('--can-px', `${(pointerCurrent.x * 6).toFixed(2)}px`);
+        canvas.style.setProperty('--can-py', `${(pointerCurrent.y * 6).toFixed(2)}px`);
+        videoEl.style.setProperty('--vid-px', `${(pointerCurrent.x * 8).toFixed(2)}px`);
+        videoEl.style.setProperty('--vid-py', `${(pointerCurrent.y * 8).toFixed(2)}px`);
+        videoEl.style.setProperty('--vid-scale', (Math.abs(pointerCurrent.x) > 0.001 || Math.abs(pointerCurrent.y) > 0.001) ? '1.03' : '1');
+      }
+
+      const hx = holeCoords.x;
+      const hy = holeCoords.y;
+      const shadow = Math.max(40, holeCoords.shadow);
+
+      // When previewing before local assets/home/blackhole-loop-*.mp4 is attached, draw the ray-traced black hole & Paddo inside it
+      if (!videoLoadedOk) {
+        drawProceduralBlackHoleAndPaddo(ctx, hx, hy, shadow, now);
+      }
+
+      ctx.globalCompositeOperation = 'lighter';
+
+      // 60 Twinkling stars
+      for (let i = 0; i < twinkleStars.length; i++) {
+        const st = twinkleStars[i];
+        const breath = 0.2 + 0.7 * (0.5 + 0.5 * Math.sin((now / st.period) * Math.PI * 2 + st.phase));
+        ctx.fillStyle = `rgba(255, 246, 230, ${breath.toFixed(3)})`;
+        ctx.beginPath();
+        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 140 (or 70) Spiralling Sparkles (anticlockwise on screen, angular speed ∝ r^-1.5)
+      const palette = ['#FFD27A', '#4FE3FF', '#C8F07A', '#FFFFFF'];
+      for (let i = 0; i < sparkles.length; i++) {
+        const sp = sparkles[i];
+        const normR = Math.max(1.05, sp.r / shadow);
+        const omega = 0.032 * Math.pow(normR, -1.5);
+        sp.angle -= omega; // Anticlockwise in screen coordinates (y-down)
+        sp.r -= 0.45 + (1.2 / normR);
+
+        if (sp.r <= 1.1 * shadow) {
+          sparkles[i] = spawnSparkle(palette);
+          continue;
+        }
+
+        const fadeEdge = Math.min(1, (sp.r - 1.1 * shadow) / (0.6 * shadow));
+        const x = hx + Math.cos(sp.angle) * sp.r;
+        const y = hy + Math.sin(sp.angle) * sp.r;
+
+        ctx.save();
+        ctx.globalAlpha = sp.alpha * fadeEdge;
+        ctx.shadowColor = sp.color;
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = sp.color;
+        ctx.beginPath();
+        ctx.arc(x, y, sp.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      ctx.restore();
+    }
+
+    // Procedural fallback rendering of the lensed black hole + waving Paddo so the preview is vivid before local video files are dropped in
+    function drawProceduralBlackHoleAndPaddo(ctx, hx, hy, shadow, now) {
+      ctx.save();
+      // Outer violet nebula halo
+      const nebula = ctx.createRadialGradient(hx, hy, shadow * 0.6, hx, hy, shadow * 3.8);
+      nebula.addColorStop(0, 'rgba(255, 179, 71, 0.55)');
+      nebula.addColorStop(0.35, 'rgba(69, 54, 163, 0.45)');
+      nebula.addColorStop(0.7, 'rgba(36, 26, 94, 0.25)');
+      nebula.addColorStop(1, 'rgba(18, 11, 51, 0)');
+      ctx.fillStyle = nebula;
+      ctx.beginPath();
+      ctx.arc(hx, hy, shadow * 3.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Gravitational lensing photon ring
+      const photonRing = ctx.createRadialGradient(hx, hy, shadow * 0.92, hx, hy, shadow * 1.45);
+      photonRing.addColorStop(0, '#120B33');
+      photonRing.addColorStop(0.22, '#FFF6E6');
+      photonRing.addColorStop(0.5, '#FFB347');
+      photonRing.addColorStop(1, 'rgba(255, 179, 71, 0)');
+      ctx.fillStyle = photonRing;
+      ctx.beginPath();
+      ctx.arc(hx, hy, shadow * 1.45, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Event horizon shadow disc
+      ctx.fillStyle = '#09051C';
+      ctx.beginPath();
+      ctx.arc(hx, hy, shadow, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Paddo bobbing gently inside the black hole shadow
+      const bob = Math.sin(now * 0.0022) * (shadow * 0.06);
+      const py = hy + bob;
+      const scale = shadow / 140;
+
+      ctx.save();
+      ctx.translate(hx, py);
+      ctx.scale(scale, scale);
+
+      // Paddo body & suit
+      ctx.fillStyle = '#4536A3';
+      ctx.beginPath();
+      ctx.ellipse(0, 34, 28, 34, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Paddo head (lime green alien captain)
+      ctx.fillStyle = '#9BD13C';
+      ctx.beginPath();
+      ctx.ellipse(0, -10, 32, 28, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Antenna
+      ctx.strokeStyle = '#9BD13C';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(0, -36);
+      ctx.lineTo(0, -52);
+      ctx.stroke();
+      ctx.fillStyle = '#4FE3FF';
+      ctx.beginPath();
+      ctx.arc(0, -55, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Expressive eyes
+      ctx.fillStyle = '#120B33';
+      ctx.beginPath();
+      ctx.arc(-11, -12, 5.5, 0, Math.PI * 2);
+      ctx.arc(11, -12, 5.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFF6E6';
+      ctx.beginPath();
+      ctx.arc(-9, -14, 2, 0, Math.PI * 2);
+      ctx.arc(13, -14, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Smile
+      ctx.strokeStyle = '#120B33';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(0, -4, 10, 0.15 * Math.PI, 0.85 * Math.PI);
+      ctx.stroke();
+
+      // Waving arm
+      const waveAngle = -0.5 + Math.sin(now * 0.006) * 0.35;
+      ctx.save();
+      ctx.translate(24, 18);
+      ctx.rotate(waveAngle);
+      ctx.fillStyle = '#9BD13C';
+      ctx.beginPath();
+      ctx.roundRect(0, -6, 30, 12, 6);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.restore();
+
+      // Front accretion disk crossing in front of Paddo's feet
+      ctx.save();
+      ctx.translate(hx, hy + shadow * 0.18);
+      ctx.rotate(-0.14);
+      const diskGrad = ctx.createLinearGradient(-shadow * 2.4, 0, shadow * 2.4, 0);
+      diskGrad.addColorStop(0, 'rgba(255, 179, 71, 0)');
+      diskGrad.addColorStop(0.25, 'rgba(255, 179, 71, 0.85)');
+      diskGrad.addColorStop(0.5, '#FFF6E6');
+      diskGrad.addColorStop(0.75, 'rgba(255, 179, 71, 0.85)');
+      diskGrad.addColorStop(1, 'rgba(255, 179, 71, 0)');
+      ctx.fillStyle = diskGrad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, shadow * 2.35, shadow * 0.24, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.restore();
+    }
+
+    // 3. The Dive Scroll Handler (rAF-throttled)
+    let scrollTicking = false;
+    function updateScrollDiveAndHeader() {
+      scrollTicking = false;
+      const scrollY = window.scrollY || window.pageYOffset;
+      const header = document.getElementById('site-header');
+      const hero = document.getElementById('hero-section');
+      const homeView = document.getElementById('page-home');
+
+      if (header) {
+        const threshold = (homeView && !homeView.hidden && hero) ? hero.offsetHeight - window.innerHeight * 0.8 : 24;
+        header.classList.toggle('is-scrolled', scrollY > threshold);
+      }
+
+      if (!hero || prefersReducedMotion.matches || (homeView && homeView.hidden)) return;
+
+      const maxScroll = Math.max(1, 0.9 * (hero.offsetHeight - window.innerHeight));
+      const dive = Math.min(1, Math.max(0, scrollY / maxScroll));
+
+      hero.style.setProperty('--dive', dive.toFixed(4));
+
+      const hint = document.getElementById('hero-scroll-hint');
+      if (hint) {
+        hint.classList.toggle('is-hidden', dive > 0.05);
       }
     }
 
-    const cosmicPosts = [
-      {
-        id: 1,
-        date: "October 9, 2026",
-        category: "Future Tech",
-        title: "NASA astronauts splash down after 100 million miles in space",
-        summary: "NASA's SpaceX Crew-12 astronauts have returned to Earth after 237 days in space, traveling more than 100 million miles aboard the International Space Station.",
-        deepDive: "Over 237 days in low-Earth orbit, NASA's SpaceX Crew-12 mission completed hundreds of microgravity experiments ranging from closed-loop life support recovery to advanced solar array diagnostics. In Better Atoms simulations, long-duration orbital missions like Crew-12 model how thermal recycling and chemical oxygen regeneration keep crews self-sufficient across 100 million miles of orbital travel."
-      },
-      {
-        id: 2,
-        date: "October 9, 2026",
-        category: "Cosmic Research",
-        title: "A 9-billion-year-old signal could help explain dark energy",
-        summary: "A Canadian radio telescope has detected the faint glow of hydrogen from billions of years ago using only its own observations, opening a new window into cosmic expansion.",
-        deepDive: "Using neutral hydrogen intensity mapping (the 21-centimeter hyperfine transition line), astronomers captured radio emissions that traveled for 9 billion years. Because neutral hydrogen traces large-scale cosmic structure, measuring its distribution across deep time reveals how dark energy accelerated the expansion of the universe."
-      },
-      {
-        id: 3,
-        date: "October 9, 2026",
-        category: "Cosmic Research",
-        title: "October's night sky is full of cosmic tricks and treats",
-        summary: "October's skies are packed with celestial surprises, from Jupiter disappearing behind the Moon to two meteor showers lighting up the pre-dawn hours.",
-        deepDive: "Skywatchers this month can observe lunar occultations of Jupiter alongside dual meteor streams—the Draconids and the Orionids. Observing orbital alignments from Earth provides a direct visual demonstration of angular momentum and ecliptic plane geometry."
-      },
-      {
-        id: 4,
-        date: "October 8, 2026",
-        category: "Future Tech",
-        title: "NASA is searching for hidden caves to build its first Moon base",
-        summary: "NASA is preparing for humanity's first Moon base with three investigations that will hunt for underground shelters, uncovering lava tubes that shield habitats from radiation.",
-        deepDive: "Lunar lava tubes offer natural protection against micrometeorites, cosmic radiation, and extreme 280°C surface temperature swings. By situating habitats inside subsurface caverns, future lunar bases dramatically reduce the thermal energy required to regulate internal cabin temperatures."
-      },
-      {
-        id: 5,
-        date: "October 8, 2026",
-        category: "Micro to Macro",
-        title: "Einstein Probe reveals a hidden phase of neutron star collisions",
-        summary: "Einstein Probe revealed nearly 10 minutes of soft X-ray activity following a short gamma-ray burst, exposing a phase of kilonova physics where heavy atoms are forged.",
-        deepDive: "When two ultra-dense neutron stars spiral together and collide, rapid neutron capture (the r-process) synthesizes heavy elements like gold, platinum, and uranium. The Einstein Probe's extended soft X-ray detection captures the millisecond-to-minute transition from nuclear plasma to newly forged atomic nuclei."
-      },
-      {
-        id: 6,
-        date: "October 7, 2026",
-        category: "Cosmic Research",
-        title: "NASA's Webb finds signs of Mars-sized worlds smashing together",
-        summary: "NASA's James Webb Space Telescope is giving astronomers a glimpse of the kinds of violent collisions that may have shaped rocky terrestrial planets and our own Moon.",
-        deepDive: "Infrared spectroscopy from JWST detected warm silica dust clouds and vaporized rock around a young planetary system—the smoking gun of giant protoplanetary impacts. These kinetic collisions convert immense orbital momentum into thermal energy, melting entire planetary mantles."
-      },
-      {
-        id: 7,
-        date: "October 7, 2026",
-        category: "Cosmic Research",
-        title: "Webb finds a surprising atmosphere on a scorching lava world",
-        summary: "The James Webb Space Telescope has found strong evidence that the rocky lava world HD 3167 b has an atmosphere, despite orbiting blistering close to its host star.",
-        deepDive: "HD 3167 b completes an orbit in less than an Earth day, leaving its dayside hemisphere a perpetual ocean of molten silicate magma. JWST's transmission spectra suggest an atmosphere sustained by outgassing of vaporized minerals—a radical laboratory for extreme chemical and thermal equilibrium."
-      },
-      {
-        id: 8,
-        date: "October 7, 2026",
-        category: "Micro to Macro",
-        title: "Earth's center is moving, and NASA just measured it",
-        summary: "Earth's center of mass is constantly on the move, shifting by a few millimeters as enormous amounts of water, ice, and earth redistribute across the globe.",
-        deepDive: "Using satellite laser ranging and gravimetry, geophysicists track millimeter-scale shifts in Earth's geocenter caused by seasonal water cycles, ocean currents, and glacial melt. It is a planetary-scale lesson in conservation of center-of-mass mechanics."
-      },
-      {
-        id: 9,
-        date: "October 5, 2026",
-        category: "Cosmic Research",
-        title: "Don't miss: Watch Saturn shine and Halley's Comet debris streak across the sky",
-        summary: "October skywatchers can see Saturn at opposition, catch meteors from Halley's Comet during the Orionid peak, and watch the Moon visit bright autumn planets.",
-        deepDive: "At opposition, Saturn lies directly opposite the Sun from Earth, shining at peak brightness all night and revealing the Seeliger brightening effect across its icy rings. Meanwhile, Earth intersects dusty debris left behind by 1P/Halley, vaporizing cometary grains at 66 km/s."
+    window.addEventListener('scroll', () => {
+      if (!scrollTicking) {
+        requestAnimationFrame(updateScrollDiveAndHeader);
+        scrollTicking = true;
       }
+    }, { passive: true });
+
+    // 4. 3D Picture Frame Tilt & Gloss (up to 7 degrees)
+    function initTiltFrames() {
+      const frames = document.querySelectorAll('.tilt-frame');
+      frames.forEach(frame => {
+        frame.addEventListener('pointermove', e => {
+          if (prefersReducedMotion.matches || e.pointerType === 'touch') return;
+          const rect = frame.getBoundingClientRect();
+          const nx = (e.clientX - rect.left) / rect.width;
+          const ny = (e.clientY - rect.top) / rect.height;
+          const rotY = (nx - 0.5) * 14; // -7 deg to +7 deg
+          const rotX = (0.5 - ny) * 14;
+          frame.style.transform = `perspective(900px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+          frame.style.setProperty('--gloss-x', `${(nx * 100).toFixed(1)}%`);
+          frame.style.setProperty('--gloss-y', `${(ny * 100).toFixed(1)}%`);
+          frame.style.setProperty('--gloss-opacity', '1');
+        });
+        frame.addEventListener('pointerleave', () => {
+          frame.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg)';
+          frame.style.setProperty('--gloss-opacity', '0');
+        });
+      });
+    }
+
+    // 5. Books Page: 16 Chapters & Accessible <dialog> Lightbox
+    const bookChapters = [
+      { num: 1, title: "[TO FILL: Chapter 1 title from ASSET_MAP.md]", idea: "Air pressure", img: "assets/books/chapters/chapter-01.webp" },
+      { num: 2, title: "[TO FILL: Chapter 2 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 2 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-02.webp" },
+      { num: 3, title: "[TO FILL: Chapter 3 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 3 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-03.webp" },
+      { num: 4, title: "[TO FILL: Chapter 4 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 4 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-04.webp" },
+      { num: 5, title: "[TO FILL: Chapter 5 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 5 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-05.webp" },
+      { num: 6, title: "[TO FILL: Chapter 6 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 6 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-06.webp" },
+      { num: 7, title: "[TO FILL: Chapter 7 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 7 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-07.webp" },
+      { num: 8, title: "[TO FILL: Chapter 8 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 8 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-08.webp" },
+      { num: 9, title: "[TO FILL: Chapter 9 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 9 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-09.webp" },
+      { num: 10, title: "[TO FILL: Chapter 10 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 10 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-10.webp" },
+      { num: 11, title: "[TO FILL: Chapter 11 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 11 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-11.webp" },
+      { num: 12, title: "[TO FILL: Chapter 12 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 12 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-12.webp" },
+      { num: 13, title: "[TO FILL: Chapter 13 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 13 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-13.webp" },
+      { num: 14, title: "[TO FILL: Chapter 14 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 14 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-14.webp" },
+      { num: 15, title: "[TO FILL: Chapter 15 title from ASSET_MAP.md]", idea: "[TO FILL: Chapter 15 science idea from ASSET_MAP.md]", img: "assets/books/chapters/chapter-15.webp" },
+      { num: 16, title: "[TO FILL: Chapter 16 title from ASSET_MAP.md]", idea: "Black holes", img: "assets/books/chapters/chapter-16.webp" }
     ];
 
-    let activeBlogCategory = 'ALL';
+    let activeChapterIndex = 0;
 
-    function setBlogCategory(cat) {
-      activeBlogCategory = cat;
-      ['ALL', 'Cosmic Research', 'Micro to Macro', 'Future Tech'].forEach(c => {
-        const btn = document.getElementById('cat-' + c);
-        if (btn) {
-          btn.className = (c === cat)
-            ? 'px-3 py-1.5 rounded-lg bg-atomCyan text-obsidian font-bold transition'
-            : 'px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
-        }
-      });
-      renderBlogFeed();
+    function renderChaptersGallery() {
+      const grid = document.getElementById('chapters-grid');
+      if (!grid) return;
+      grid.innerHTML = bookChapters.map((ch, idx) => `
+        <button type="button" class="chapter-btn" onclick="openChapterDialog(${idx})">
+          <div class="frame-3d" style="border-radius:18px;margin-bottom:0.85rem;">
+            <img
+              src="${ch.img}"
+              alt="Chapter ${ch.num}"
+              width="600"
+              height="450"
+              loading="lazy"
+              decoding="async"
+              onerror="this.outerHTML='<div class=\\'media-art\\'><strong>Chapter ${ch.num}</strong><span>${ch.img}</span></div>'"
+            >
+          </div>
+          <h3>Chapter ${ch.num}: <span class="placeholder-bracket">${ch.title}</span></h3>
+          <p style="margin-bottom:0;font-size:0.98rem;">Science idea: <strong>${ch.idea}</strong></p>
+        </button>
+      `).join('');
     }
 
-    function renderBlogFeed() {
-      const searchEl = document.getElementById('blog-search');
-      const query = (searchEl ? searchEl.value : '').toLowerCase();
-      const grid = document.getElementById('blog-grid');
+    function openChapterDialog(index) {
+      activeChapterIndex = (index + bookChapters.length) % bookChapters.length;
+      const ch = bookChapters[activeChapterIndex];
+      const dialog = document.getElementById('chapter-dialog');
+      if (!dialog) return;
+
+      document.getElementById('dialog-chapter-title').textContent = `Chapter ${ch.num}: ${ch.title}`;
+      document.getElementById('dialog-chapter-idea').textContent = `Science idea: ${ch.idea}`;
+      document.getElementById('dialog-img-container').innerHTML = `
+        <img
+          src="${ch.img}"
+          alt="Chapter ${ch.num}"
+          width="800"
+          height="600"
+          decoding="async"
+          onerror="this.outerHTML='<div class=\\'media-art\\'><strong>Chapter ${ch.num}</strong><span>${ch.img}</span></div>'"
+        >
+      `;
+      if (!dialog.open) {
+        dialog.showModal();
+      }
+    }
+
+    // 6. Blog Atoms 8 Cards & Post Reader
+    const blogPosts = [
+      { slug: "meet-paddo", title: "Meet Paddo", img: "assets/blog/meet-paddo-1200x630.webp" },
+      { slug: "post-02", title: "[TO FILL: Post 2 title from ASSET_MAP.md]", img: "assets/blog/post-02-1200x630.webp" },
+      { slug: "post-03", title: "[TO FILL: Post 3 title from ASSET_MAP.md]", img: "assets/blog/post-03-1200x630.webp" },
+      { slug: "post-04", title: "[TO FILL: Post 4 title from ASSET_MAP.md]", img: "assets/blog/post-04-1200x630.webp" },
+      { slug: "post-05", title: "[TO FILL: Post 5 title from ASSET_MAP.md]", img: "assets/blog/post-05-1200x630.webp" },
+      { slug: "post-06", title: "[TO FILL: Post 6 title from ASSET_MAP.md]", img: "assets/blog/post-06-1200x630.webp" },
+      { slug: "post-07", title: "[TO FILL: Post 7 title from ASSET_MAP.md]", img: "assets/blog/post-07-1200x630.webp" },
+      { slug: "post-08", title: "[TO FILL: Post 8 title from ASSET_MAP.md]", img: "assets/blog/post-08-1200x630.webp" }
+    ];
+
+    function renderBlogCards() {
+      const grid = document.getElementById('blog-cards-grid');
       if (!grid) return;
-
-      const filtered = cosmicPosts.filter(p => {
-        const matchesCat = activeBlogCategory === 'ALL' || p.category === activeBlogCategory;
-        const matchesQuery = p.title.toLowerCase().includes(query) || p.summary.toLowerCase().includes(query);
-        return matchesCat && matchesQuery;
-      });
-
-      grid.innerHTML = filtered.map(post => `
-        <article class="rounded-2xl glass-panel glass-panel-hover p-6 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-atomCyan">${post.category}</span>
-              <span class="text-slate-400">${post.date}</span>
-            </div>
-            <h3 class="font-display font-bold text-lg text-white leading-snug">
-              ${post.title}
-            </h3>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              ${post.summary}
-            </p>
+      grid.innerHTML = blogPosts.map((post, idx) => `
+        <article class="card-night">
+          <div class="frame-3d tilt-frame" style="margin-bottom:1.25rem;">
+            <img
+              src="${post.img}"
+              alt="${post.title}"
+              width="1200"
+              height="630"
+              loading="lazy"
+              decoding="async"
+              onerror="this.outerHTML='<div class=\\'media-art\\' style=\\'aspect-ratio:1200/630;\\'><span>${post.img}</span></div>'"
+            >
           </div>
-          <div class="pt-5 mt-4 border-t border-white/10 flex items-center justify-between">
-            <button onclick="openPostModal(${post.id})" class="font-mono text-xs text-atomCyan hover:text-white transition flex items-center gap-1.5">
-              <span>Read Transmission</span>
-              <span>&rarr;</span>
-            </button>
-            <span class="font-mono text-[10px] text-slate-500">TX-0${post.id}</span>
-          </div>
+          <h3>${post.title}</h3>
+          <a href="blog/${post.slug}.html" onclick="return openBlogPost(${idx}, event)">Read the post</a>
         </article>
       `).join('');
     }
 
-    function openPostModal(id) {
-      const post = cosmicPosts.find(p => p.id === id);
-      if (!post) return;
-      document.getElementById('modal-tag').textContent = `COSMIC INTELLIGENCE // ${post.category.toUpperCase()}`;
-      document.getElementById('modal-title').textContent = post.title;
-      document.getElementById('modal-meta').textContent = `Published ${post.date} • Better Atoms Telemetry Feed`;
-      document.getElementById('modal-body').innerHTML = `
-        <p class="text-slate-200">${post.summary}</p>
-        <div class="p-4 rounded-xl bg-obsidian border border-atomCyan/30 space-y-2">
-          <div class="font-mono text-xs text-atomCyan uppercase">Better Atoms STEM Analysis</div>
-          <p class="text-sm text-slate-300">${post.deepDive}</p>
-        </div>
+    function openBlogPost(index, event) {
+      if (event) event.preventDefault();
+      const post = blogPosts[index] || blogPosts[0];
+      document.getElementById('post-view-title').textContent = post.title;
+      document.getElementById('post-hero-frame').innerHTML = `
+        <img
+          src="${post.img}"
+          alt="${post.title}"
+          width="1200"
+          height="630"
+          decoding="async"
+          onerror="this.outerHTML='<div class=\\'media-art\\' style=\\'aspect-ratio:1200/630;\\'><span>${post.img}</span></div>'"
+        >
       `;
-      const modal = document.getElementById('dossier-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      switchPage('post');
+      return false;
     }
 
-    function openBookModal() {
-      document.getElementById('modal-tag').textContent = 'BOOK DOSSIER // BETTER ATOMS SERIES VOL. 01';
-      document.getElementById('modal-title').textContent = 'Better Atoms: Paddo and the Trial of Curiosity';
-      document.getElementById('modal-meta').textContent = 'By Aman Singh • Featured Characters: Paddo & Spark';
-      document.getElementById('modal-body').innerHTML = `
-        <p>When the Universal Accountants threaten to shut down Earth for "excessive daydreaming and inefficient curiosity," a green alien explorer named <strong>Paddo</strong> and his spark-powered co-pilot <strong>Spark</strong> crash-land to help young human scientists prove that curiosity is the ultimate renewable energy source.</p>
-        <div class="p-4 rounded-xl bg-obsidian border border-atomEmerald/30 space-y-2">
-          <div class="font-mono text-xs text-atomEmerald uppercase">Included Hands-On STEM Module</div>
-          <p class="text-sm text-slate-300"><strong>The Lemon-Atom Battery &amp; Kinetic Pendulum Trial:</strong> Readers build a real chemical cell and kinetic transfer rig alongside Paddo to reboot Spark's navigation core—connecting directly to the UFO CRASH energy simulator on this page.</p>
-        </div>
-      `;
-      const modal = document.getElementById('dossier-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('dossier-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function updateUfoSim() {
-      const solar = parseInt(document.getElementById('sim-solar').value, 10);
-      const kinetic = parseInt(document.getElementById('sim-kinetic').value, 10);
-      const chemical = parseInt(document.getElementById('sim-chemical').value, 10);
-      const thermal = parseInt(document.getElementById('sim-thermal').value, 10);
-
-      document.getElementById('val-solar').textContent = solar + ' kW';
-      document.getElementById('val-kinetic').textContent = kinetic + ' kW';
-      document.getElementById('val-chemical').textContent = chemical + ' kW';
-      document.getElementById('val-thermal').textContent = thermal + ' kW';
-
-      const total = solar + kinetic + chemical + thermal;
-      const balancePenalty = Math.max(0, (chemical - 42) * 0.6) + Math.max(0, (thermal - 35) * 0.5);
-      const rawEff = Math.min(99, Math.max(60, Math.round(88 + (solar * 0.15) + (kinetic * 0.12) - balancePenalty)));
-
-      document.getElementById('sim-total-kw').textContent = `${total} kW / 120 kW Required`;
-      document.getElementById('sim-efficiency').textContent = `${rawEff}%`;
-
-      const pct = Math.min(100, Math.round((total / 160) * 100));
-      document.getElementById('sim-progress-bar').style.width = pct + '%';
-
-      const badge = document.getElementById('ufo-status-badge');
-      if (total >= 120 && rawEff >= 85) {
-        badge.className = 'px-3.5 py-1.5 rounded-full bg-atomEmerald/20 border border-atomEmerald/50 text-atomEmerald font-mono text-xs font-bold';
-        badge.textContent = `● GRID OPTIMAL (${total} kW)`;
-      } else if (total >= 90) {
-        badge.className = 'px-3.5 py-1.5 rounded-full bg-atomAmber/20 border border-atomAmber/50 text-atomAmber font-mono text-xs font-bold';
-        badge.textContent = `▲ SUB-OPTIMAL (${total} kW)`;
-      } else {
-        badge.className = 'px-3.5 py-1.5 rounded-full bg-atomRose/20 border border-atomRose/50 text-atomRose font-mono text-xs font-bold';
-        badge.textContent = `■ BROWNOUT ALERT (${total} kW)`;
+    // 7. Page Meta Titles & Descriptions Switcher (Exact Table from Section 7)
+    const pageMeta = {
+      home: {
+        title: "Better Atoms: space EdTech where curiosity is stronger than gravity",
+        desc: "Better Atoms explores how energy, technology and sustainability work in space, through stories, games, learning kits and the book Paddo and the Trial of Curiosity."
+      },
+      books: {
+        title: "Paddo and the Trial of Curiosity: the book | Better Atoms",
+        desc: "A read-aloud STEM adventure for ages 6 to 12 by Aman Singh: 16 chapters and 16 science ideas, from air pressure to black holes."
+      },
+      games: {
+        title: "Games: worlds that teach through play | Better Atoms",
+        desc: "Story-driven science, math and technology games where mistakes are part of the fun. Coming soon."
+      },
+      edtech: {
+        title: "EdTech toys and learning kits | Better Atoms",
+        desc: "Modular, sustainable learning kits inspired by space systems and renewable technology, and partnerships with schools."
+      },
+      restaurant: {
+        title: "Space Restaurant: UFO CRASH | Better Atoms",
+        desc: "A space-age alien restaurant that shows how clean technology can power the future. Coming soon."
+      },
+      blog: {
+        title: "Blog Atoms | Better Atoms",
+        desc: "Stories and ideas from Better Atoms on space, energy and learning."
+      },
+      post: {
+        title: "Meet Paddo | Blog Atoms | Better Atoms",
+        desc: "Stories and ideas from Better Atoms on space, energy and learning."
+      },
+      privacy: {
+        title: "Privacy & policies | Better Atoms",
+        desc: "How the Better Atoms website handles your information."
+      },
+      "404": {
+        title: "This page drifted into a black hole | Better Atoms",
+        desc: "The link may be old or mistyped."
       }
-
-      const setSub = (id, label, online) => {
-        const el = document.getElementById(id);
-        el.className = online
-          ? 'py-1.5 px-2 rounded-lg bg-atomEmerald/15 text-atomEmerald border border-atomEmerald/30'
-          : 'py-1.5 px-2 rounded-lg bg-atomRose/15 text-atomRose border border-atomRose/30';
-        el.textContent = `${label}: ${online ? 'ONLINE' : 'OFFLINE'}`;
-      };
-
-      setSub('sub-kitchen', '🍽️ Plasma Kitchen', total >= 50);
-      setSub('sub-hydro', '🌱 Astro-Hydroponics', total >= 90);
-      setSub('sub-gravity', '🛸 Gravity Plating', total >= 120);
-    }
-
-    const policyProtocols = {
-      'PRIV-2026': `
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <div class="font-mono text-xs text-atomCyan mb-1">01. Introduction</div>
-            <p class="text-xs text-slate-300">At Better Atoms, we value your trust. This Privacy Policy explains how we collect, use, and protect information. Our approach is designed to be transparent, responsible, and aligned with modern digital standards and Indian data protection regulations.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <div class="font-mono text-xs text-atomCyan mb-1">02. Information We Collect</div>
-            <p class="text-xs text-slate-300">We may collect personal information when you visit our website, contact us, or subscribe to updates. This includes your name, email address, and basic technical usage data. Minimal data collection principles are strictly followed.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <div class="font-mono text-xs text-atomCyan mb-1">03. Cookies &amp; Analytics</div>
-            <p class="text-xs text-slate-300">Our website uses aggregated analytics cookies to understand how Better Atoms is explored and improve the experience. You maintain full control to disable cookies or delete account data in one tap.</p>
-          </div>
-        </div>
-      `,
-      'GUID-2026': `
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <div class="font-mono text-xs text-atomEmerald mb-1">01. Workplace &amp; Community Conduct</div>
-            <p class="text-xs text-slate-300">Better Atoms supports a flexible and respectful work and learning culture. Team members, educators, and collaborators act professionally, ethically, and respectfully with clear communication.</p>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <div class="font-mono text-xs text-atomEmerald mb-1">02. Intellectual Property</div>
-            <p class="text-xs text-slate-300">All content, branding, Paddo narratives, simulations, visuals, and materials associated with Better Atoms are protected intellectual property of Better Atoms Technologies LLP.</p>
-          </div>
-        </div>
-      `,
-      'CORP-LLP': `
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <span class="text-slate-400 block">REGISTERED ENTITY</span>
-            <strong class="text-white mt-1 block">Better Atoms Technologies LLP</strong>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <span class="text-slate-400 block">LLP IDENTIFICATION NO.</span>
-            <strong class="text-atomCyan mt-1 block">ACJ-7704</strong>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <span class="text-slate-400 block">FOUNDER &amp; DESIGNATED PARTNER</span>
-            <strong class="text-white mt-1 block">Aman Singh</strong>
-          </div>
-          <div class="p-4 rounded-xl bg-obsidian/70 border border-white/10">
-            <span class="text-slate-400 block">JURISDICTION</span>
-            <strong class="text-atomEmerald mt-1 block">New Delhi / Bengaluru, India</strong>
-          </div>
-        </div>
-      `,
-      'COMM-EXT': `
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-xl bg-obsidian/70 border border-white/10 font-mono text-xs">
-          <div>
-            <span class="text-slate-400 block">// OFFICIAL COMMUNICATION CHANNELS</span>
-            <span class="text-white mt-1 block">Website: www.betteratoms.com &bull; Official Email: <a href="mailto:contactus@betteratoms.com" class="text-atomCyan underline">contactus@betteratoms.com</a></span>
-          </div>
-          <span class="px-3 py-1 rounded-lg bg-atomEmerald/20 text-atomEmerald">ENCRYPTED VERIFIED SOURCE</span>
-        </div>
-      `
     };
 
-    function switchPolicyTab(code) {
-      ['PRIV-2026', 'GUID-2026', 'CORP-LLP', 'COMM-EXT'].forEach(t => {
-        const btn = document.getElementById('tab-' + t);
-        if (btn) {
-          btn.className = (t === code)
-            ? 'px-3.5 py-2 rounded-xl bg-atomCyan text-obsidian font-bold transition'
-            : 'px-3.5 py-2 rounded-xl bg-white/5 text-slate-300 hover:bg-white/10 transition';
+    function switchPage(pageKey, event) {
+      if (event) event.preventDefault();
+      document.querySelectorAll('.page-view').forEach(view => {
+        view.hidden = (view.id !== `page-${pageKey}`);
+      });
+
+      document.querySelectorAll('[data-nav]').forEach(link => {
+        if (link.getAttribute('data-nav') === pageKey) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
         }
       });
-      const contentEl = document.getElementById('policy-content');
-      if (contentEl) contentEl.innerHTML = policyProtocols[code];
-    }
 
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      if (menu) menu.classList.toggle('hidden');
-    }
-
-    let scene, camera, renderer, rootGroup, floorMirrorGroup;
-    let currentLabMode = 'molecular';
-    let excitationSpeed = 1.0;
-    let harmonicComplexity = 3;
-    let isDragging = false;
-    let prevMouse = { x: 0, y: 0 };
-
-    function initThreeLab() {
-      const container = document.getElementById('three-canvas-container');
-      if (!container) return;
-
-      // Clear any pre-existing canvas before initializing
-      const oldCanvases = container.querySelectorAll('canvas');
-      oldCanvases.forEach(c => c.remove());
-
-      const width = container.clientWidth || 600;
-      const height = container.clientHeight || 440;
-
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(48, width / height, 0.1, 1000);
-      camera.position.set(0, 2.2, 9.5);
-      camera.lookAt(0, 0, 0);
-
-      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-      container.appendChild(renderer.domElement);
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.55);
-      scene.add(ambientLight);
-
-      const pointLight1 = new THREE.PointLight(0x00f0ff, 2.2, 30);
-      pointLight1.position.set(6, 7, 6);
-      scene.add(pointLight1);
-
-      const pointLight2 = new THREE.PointLight(0x8b5cf6, 1.8, 30);
-      pointLight2.position.set(-6, -4, 5);
-      scene.add(pointLight2);
-
-      const pointLight3 = new THREE.PointLight(0x10b981, 1.5, 25);
-      pointLight3.position.set(0, 5, -6);
-      scene.add(pointLight3);
-
-      // Reflective Black Surface Grid Plane
-      const gridHelper = new THREE.GridHelper(18, 24, 0x00f0ff, 0x1e293b);
-      gridHelper.position.y = -2.6;
-      gridHelper.material.opacity = 0.25;
-      gridHelper.material.transparent = true;
-      scene.add(gridHelper);
-
-      rootGroup = new THREE.Group();
-      floorMirrorGroup = new THREE.Group();
-      floorMirrorGroup.scale.y = -0.35;
-      floorMirrorGroup.position.y = -5.2;
-      scene.add(rootGroup);
-      scene.add(floorMirrorGroup);
-
-      buildSceneGeometry();
-
-      // Mouse & Touch Orbit Controls
-      const dom = renderer.domElement;
-      dom.addEventListener('mousedown', e => {
-        isDragging = true;
-        prevMouse = { x: e.clientX, y: e.clientY };
-      });
-      window.addEventListener('mouseup', () => { isDragging = false; });
-      window.addEventListener('mousemove', e => {
-        if (!isDragging || !rootGroup) return;
-        const dx = (e.clientX - prevMouse.x) * 0.008;
-        const dy = (e.clientY - prevMouse.y) * 0.008;
-        rootGroup.rotation.y += dx;
-        rootGroup.rotation.x += dy;
-        floorMirrorGroup.rotation.y = rootGroup.rotation.y;
-        prevMouse = { x: e.clientX, y: e.clientY };
-      });
-
-      dom.addEventListener('touchstart', e => {
-        if (e.touches.length === 1) {
-          isDragging = true;
-          prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      document.querySelectorAll('[data-nav-mobile]').forEach(link => {
+        if (link.getAttribute('data-nav-mobile') === pageKey) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
         }
-      }, { passive: true });
-      window.addEventListener('touchend', () => { isDragging = false; });
-      window.addEventListener('touchmove', e => {
-        if (!isDragging || !rootGroup || e.touches.length !== 1) return;
-        const dx = (e.touches[0].clientX - prevMouse.x) * 0.008;
-        const dy = (e.touches[0].clientY - prevMouse.y) * 0.008;
-        rootGroup.rotation.y += dx;
-        rootGroup.rotation.x += dy;
-        floorMirrorGroup.rotation.y = rootGroup.rotation.y;
-        prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-      }, { passive: true });
-
-      window.addEventListener('resize', () => {
-        if (!container || !renderer || !camera) return;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
       });
-    }
 
-    function clearGroups() {
-      if (!rootGroup || !floorMirrorGroup) return;
-      while (rootGroup.children.length > 0) {
-        rootGroup.remove(rootGroup.children[0]);
+      document.querySelectorAll('[data-preview-btn]').forEach(btn => {
+        btn.classList.toggle('is-active', btn.getAttribute('data-preview-btn') === pageKey);
+      });
+
+      const meta = pageMeta[pageKey] || pageMeta.home;
+      document.title = meta.title;
+      const descTag = document.querySelector('meta[name="description"]');
+      if (descTag) descTag.setAttribute('content', meta.desc);
+
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      updateScrollDiveAndHeader();
+      if (pageKey === 'home') {
+        setTimeout(updateHoleGeometry, 50);
       }
-      while (floorMirrorGroup.children.length > 0) {
-        floorMirrorGroup.remove(floorMirrorGroup.children[0]);
-      }
+      return false;
     }
 
-    function buildSceneGeometry() {
-      if (!rootGroup) return;
-      clearGroups();
+    // 8. Accessible Mobile Menu with Focus Trap & Esc Close
+    const menuOpenBtn = document.getElementById('menu-open-btn');
+    const menuCloseBtn = document.getElementById('menu-close-btn');
+    const mobileOverlay = document.getElementById('mobile-overlay');
 
-      if (currentLabMode === 'molecular') {
-        const colors = [0x00f0ff, 0x10b981, 0xf59e0b, 0x8b5cf6, 0xf43f5e];
-        const coreMat = new THREE.MeshPhysicalMaterial({
-          color: 0x00f0ff,
-          metalness: 0.2,
-          roughness: 0.1,
-          clearcoat: 1.0,
-          emissive: 0x004455
-        });
-        const core = new THREE.Mesh(new THREE.SphereGeometry(0.95, 32, 32), coreMat);
-        rootGroup.add(core);
+    function openMobileMenu() {
+      mobileOverlay.classList.add('is-open');
+      menuOpenBtn.setAttribute('aria-expanded', 'true');
+      menuCloseBtn.focus();
+    }
 
-        const nodeCount = harmonicComplexity * 4;
-        for (let i = 0; i < nodeCount; i++) {
-          const phi = Math.acos(-1 + (2 * i) / nodeCount);
-          const theta = Math.sqrt(nodeCount * Math.PI) * phi;
-          const radius = 2.2 + (i % 2) * 0.65;
+    function closeMobileMenu() {
+      if (!mobileOverlay.classList.contains('is-open')) return;
+      mobileOverlay.classList.remove('is-open');
+      menuOpenBtn.setAttribute('aria-expanded', 'false');
+      menuOpenBtn.focus();
+    }
 
-          const x = radius * Math.cos(theta) * Math.sin(phi);
-          const y = radius * Math.sin(theta) * Math.sin(phi);
-          const z = radius * Math.cos(phi);
+    if (menuOpenBtn) menuOpenBtn.addEventListener('click', openMobileMenu);
+    if (menuCloseBtn) menuCloseBtn.addEventListener('click', closeMobileMenu);
 
-          const atomMat = new THREE.MeshPhysicalMaterial({
-            color: colors[i % colors.length],
-            metalness: 0.3,
-            roughness: 0.15,
-            clearcoat: 1.0
-          });
-          const atom = new THREE.Mesh(new THREE.SphereGeometry(0.36, 24, 24), atomMat);
-          atom.position.set(x, y, z);
-          rootGroup.add(atom);
-
-          const bondVec = new THREE.Vector3(x, y, z);
-          const bondGeom = new THREE.CylinderGeometry(0.06, 0.06, bondVec.length(), 12);
-          const bondMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.6, roughness: 0.3 });
-          const bond = new THREE.Mesh(bondGeom, bondMat);
-          bond.position.copy(bondVec.clone().multiplyScalar(0.5));
-          bond.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), bondVec.clone().normalize());
-          rootGroup.add(bond);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && mobileOverlay && mobileOverlay.classList.contains('is-open')) {
+        closeMobileMenu();
+      }
+      if (e.key === 'Tab' && mobileOverlay && mobileOverlay.classList.contains('is-open')) {
+        const focusables = mobileOverlay.querySelectorAll('button, [href]');
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
         }
-
-        for (let r = 0; r < 3; r++) {
-          const ringGeom = new THREE.TorusGeometry(3.1 + r * 0.35, 0.02, 16, 100);
-          const ringMat = new THREE.MeshBasicMaterial({ color: colors[r], transparent: true, opacity: 0.45 });
-          const ring = new THREE.Mesh(ringGeom, ringMat);
-          ring.rotation.x = (r * Math.PI) / 3;
-          ring.rotation.y = (r * Math.PI) / 4;
-          rootGroup.add(ring);
-        }
-
-      } else if (currentLabMode === 'reactor') {
-        const torusGeom = new THREE.TorusKnotGeometry(1.7, 0.38, 120, 24, 2, harmonicComplexity);
-        const torusMat = new THREE.MeshPhysicalMaterial({
-          color: 0x10b981,
-          emissive: 0x053322,
-          metalness: 0.45,
-          roughness: 0.18,
-          clearcoat: 1.0
-        });
-        rootGroup.add(new THREE.Mesh(torusGeom, torusMat));
-
-        const shieldGeom = new THREE.IcosahedronGeometry(3.2, 1);
-        const shieldMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.25 });
-        rootGroup.add(new THREE.Mesh(shieldGeom, shieldMat));
-
-      } else if (currentLabMode === 'cosmic') {
-        const particleCount = 650 * harmonicComplexity;
-        const positions = new Float32Array(particleCount * 3);
-        const colors = new Float32Array(particleCount * 3);
-        const c1 = new THREE.Color(0x00f0ff);
-        const c2 = new THREE.Color(0xf59e0b);
-
-        for (let i = 0; i < particleCount; i++) {
-          const branchAngle = (i % 3) * ((2 * Math.PI) / 3);
-          const radius = Math.random() * 4.0;
-          const spinAngle = radius * 1.4;
-          const x = Math.cos(branchAngle + spinAngle) * radius + (Math.random() - 0.5) * 0.4;
-          const y = (Math.random() - 0.5) * 0.45;
-          const z = Math.sin(branchAngle + spinAngle) * radius + (Math.random() - 0.5) * 0.4;
-
-          positions[i * 3] = x;
-          positions[i * 3 + 1] = y;
-          positions[i * 3 + 2] = z;
-
-          const mixed = c1.clone().lerp(c2, radius / 4.0);
-          colors[i * 3] = mixed.r;
-          colors[i * 3 + 1] = mixed.g;
-          colors[i * 3 + 2] = mixed.b;
-        }
-
-        const pGeom = new THREE.BufferGeometry();
-        pGeom.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        pGeom.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        const pMat = new THREE.PointsMaterial({ size: 0.08, vertexColors: true });
-        rootGroup.add(new THREE.Points(pGeom, pMat));
       }
 
-      rootGroup.children.forEach(child => {
-        const clone = child.clone();
-        floorMirrorGroup.add(clone);
+      // Lightbox arrow navigation
+      const dialog = document.getElementById('chapter-dialog');
+      if (dialog && dialog.open) {
+        if (e.key === 'ArrowLeft') openChapterDialog(activeChapterIndex - 1);
+        if (e.key === 'ArrowRight') openChapterDialog(activeChapterIndex + 1);
+      }
+    });
+
+    function createZipArchive(files) {
+      const encoder = new TextEncoder();
+      const fileEntries = [];
+      let offset = 0;
+
+      // CRC32 Table
+      const crcTable = new Uint32Array(256);
+      for (let n = 0; n < 256; n++) {
+        let c = n;
+        for (let k = 0; k < 8; k++) {
+          c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+        }
+        crcTable[n] = c >>> 0;
+      }
+
+      function crc32(bytes) {
+        let crc = 0xFFFFFFFF;
+        for (let i = 0; i < bytes.length; i++) {
+          crc = (crc >>> 8) ^ crcTable[(crc ^ bytes[i]) & 0xFF];
+        }
+        return (crc ^ 0xFFFFFFFF) >>> 0;
+      }
+
+      const localChunks = [];
+      const centralChunks = [];
+
+      files.forEach(file => {
+        const nameBytes = encoder.encode(file.name);
+        const dataBytes = encoder.encode(file.content);
+        const crc = crc32(dataBytes);
+
+        // Local file header (30 bytes + name)
+        const localHeader = new Uint8Array(30 + nameBytes.length);
+        const lv = new DataView(localHeader.buffer);
+        lv.setUint32(0, 0x04034b50, true);
+        lv.setUint16(4, 20, true);
+        lv.setUint16(6, 0, true);
+        lv.setUint16(8, 0, true); // Store (uncompressed)
+        lv.setUint16(10, 0, true);
+        lv.setUint16(12, 0, true);
+        lv.setUint32(14, crc, true);
+        lv.setUint32(18, dataBytes.length, true);
+        lv.setUint32(22, dataBytes.length, true);
+        lv.setUint16(26, nameBytes.length, true);
+        lv.setUint16(28, 0, true);
+        localHeader.set(nameBytes, 30);
+
+        localChunks.push(localHeader, dataBytes);
+
+        // Central directory header (46 bytes + name)
+        const centralHeader = new Uint8Array(46 + nameBytes.length);
+        const cv = new DataView(centralHeader.buffer);
+        cv.setUint32(0, 0x02014b50, true);
+        cv.setUint16(4, 20, true);
+        cv.setUint16(6, 20, true);
+        cv.setUint16(8, 0, true);
+        cv.setUint16(10, 0, true);
+        cv.setUint16(12, 0, true);
+        cv.setUint16(14, 0, true);
+        cv.setUint32(16, crc, true);
+        cv.setUint32(20, dataBytes.length, true);
+        cv.setUint32(24, dataBytes.length, true);
+        cv.setUint16(28, nameBytes.length, true);
+        cv.setUint16(30, 0, true);
+        cv.setUint16(32, 0, true);
+        cv.setUint16(34, 0, true);
+        cv.setUint16(36, 0, true);
+        cv.setUint32(38, 0, true);
+        cv.setUint32(42, offset, true);
+        centralHeader.set(nameBytes, 46);
+
+        centralChunks.push(centralHeader);
+        offset += localHeader.length + dataBytes.length;
       });
+
+      const centralSize = centralChunks.reduce((acc, c) => acc + c.length, 0);
+      const eocd = new Uint8Array(22);
+      const ev = new DataView(eocd.buffer);
+      ev.setUint32(0, 0x06054b50, true);
+      ev.setUint16(4, 0, true);
+      ev.setUint16(6, 0, true);
+      ev.setUint16(8, files.length, true);
+      ev.setUint16(10, files.length, true);
+      ev.setUint32(12, centralSize, true);
+      ev.setUint32(16, offset, true);
+      ev.setUint16(20, 0, true);
+
+      return new Blob([...localChunks, ...centralChunks, eocd], { type: 'application/zip' });
     }
 
-    function switchLabMode(mode) {
-      currentLabMode = mode;
-      const modes = {
-        molecular: {
-          title: 'MODE 01 // REFLECTIVE MOLECULAR LATTICE',
-          scale: '10⁻¹⁰ m (Atomic Bond)',
-          flux: '4.82 eV / Photon',
-          state: 'Coherent Orbital'
+    function buildStandalonePageHTML(pageId, filename, isSubfolder) {
+      const prefix = isSubfolder ? '../' : '';
+      const meta = pageMeta[pageId] || pageMeta.home;
+      const viewEl = document.getElementById(`page-${pageId}`);
+      let mainInner = viewEl ? viewEl.innerHTML : '';
+
+      // Clean out any preview-only onclick handlers in exported standalone pages
+      mainInner = mainInner.replace(/\s*onclick="return switchPage\([^"]*\)"/g, '');
+      if (isSubfolder) {
+        mainInner = mainInner.replace(/href="blog\.html"/g, 'href="../blog.html"');
+        mainInner = mainInner.replace(/src="assets\//g, 'src="../assets/');
+      }
+
+      const jsonLdBlock = (pageId === 'home') ? `
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Better Atoms",
+        "legalName": "Better Atoms Technologies LLP",
+        "url": "https://www.betteratoms.com",
+        "email": "contactus@betteratoms.com",
+        "logo": "https://betteratoms2190.github.io/betteratoms-preview/assets/brand/better-atoms-logo-256.png"
+      },
+      {
+        "@type": "Book",
+        "name": "Paddo and the Trial of Curiosity: The Space Explorer's Handbook",
+        "author": { "@type": "Person", "name": "Aman Singh" },
+        "publisher": { "@type": "Organization", "name": "Better Atoms Technologies LLP" },
+        "url": "https://amzn.in/d/hnIT4PV",
+        "typicalAgeRange": "6-12"
+      }
+    ]
+  }
+  <\/script>` : '';
+
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow"><!-- remove at launch -->
+  <title>${meta.title}</title>
+  <meta name="description" content="${meta.desc}">
+  <meta name="theme-color" content="#120B33">
+  <link rel="icon" type="image/png" sizes="32x32" href="${prefix}assets/brand/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="${prefix}assets/brand/favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="${prefix}assets/brand/apple-touch-icon-180.png">
+  <meta property="og:title" content="${meta.title}">
+  <meta property="og:description" content="${meta.desc}">
+  <meta property="og:image" content="https://betteratoms2190.github.io/betteratoms-preview/assets/brand/og-share-1200x630.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="${prefix}css/site.css">
+  <script src="${prefix}js/site.js" defer><\/script>${jsonLdBlock}
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="announcement-bar" id="announcement-bar" role="region" aria-label="Announcement">
+    <div class="container announcement-inner">
+      <span>Just launched 🚀 Better Atoms: Paddo and the Trial of Curiosity 📘</span>
+      <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener">Get it on Amazon</a>
+      <button type="button" class="announcement-close" id="announcement-close" aria-label="Dismiss announcement">Close</button>
+    </div>
+  </div>
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="${prefix}index.html" class="brand-logo-link">
+        <img src="${prefix}assets/brand/better-atoms-logo-256.png" alt="Better Atoms" width="48" height="48" decoding="async" class="brand-logo">
+        <span>Better Atoms</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="${prefix}index.html"${pageId === 'home' ? ' aria-current="page"' : ''}>Home</a>
+        <a href="${prefix}books.html"${pageId === 'books' ? ' aria-current="page"' : ''}>Books</a>
+        <a href="${prefix}games.html"${pageId === 'games' ? ' aria-current="page"' : ''}>Games</a>
+        <a href="${prefix}edtech.html"${pageId === 'edtech' ? ' aria-current="page"' : ''}>EdTech</a>
+        <a href="${prefix}space-restaurant.html"${pageId === 'restaurant' ? ' aria-current="page"' : ''}>Space Restaurant</a>
+        <a href="${prefix}blog.html"${(pageId === 'blog' || pageId === 'post') ? ' aria-current="page"' : ''}>Blog Atoms</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:0.75rem;">
+        <a href="https://amzn.in/d/hnIT4PV" target="_blank" rel="noopener" class="btn btn-primary btn-sm header-cta-desktop">Get the book</a>
+        <button type="button" class="menu-toggle" id="menu-open-btn" aria-expanded="false" aria-controls="mobile-overlay">Menu</button>
+      </div>
+    </div>
+  </header>
+  <main id="main-content">${mainInner}</main>
+  <footer class="site-footer">
+    <div class="container">
+      <a href="${prefix}index.html" class="brand-logo-link">
+        <img src="${prefix}assets/brand/better-atoms-logo-256.png" alt="Better Atoms" width="48" height="48" loading="lazy" decoding="async" class="brand-logo">
+        <span>Better Atoms</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="${prefix}index.html">Home</a></li>
+        <li><a href="${prefix}books.html">Books</a></li>
+        <li><a href="${prefix}games.html">Games</a></li>
+        <li><a href="${prefix}edtech.html">EdTech</a></li>
+        <li><a href="${prefix}space-restaurant.html">Space Restaurant</a></li>
+        <li><a href="${prefix}blog.html">Blog Atoms</a></li>
+        <li><a href="${prefix}privacy.html">Privacy &amp; policies</a></li>
+      </ul>
+      <p>Write to us: <a href="mailto:contactus@betteratoms.com">contactus@betteratoms.com</a></p>
+      <p>&copy; 2026 Better Atoms. All rights reserved.</p>
+      <p>Powered by Better Atoms Technologies LLP</p>
+    </div>
+  </footer>
+</body>
+</html>`;
+    }
+
+    function exportFullGitHubPagesZip() {
+      const cssContent = document.getElementById('site-stylesheet').textContent.trim();
+      const files = [
+        { name: "index.html", content: buildStandalonePageHTML('home', 'index.html', false) },
+        { name: "books.html", content: buildStandalonePageHTML('books', 'books.html', false) },
+        { name: "games.html", content: buildStandalonePageHTML('games', 'games.html', false) },
+        { name: "edtech.html", content: buildStandalonePageHTML('edtech', 'edtech.html', false) },
+        { name: "space-restaurant.html", content: buildStandalonePageHTML('restaurant', 'space-restaurant.html', false) },
+        {
+          name: "restaraunt.html",
+          content: `<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="UTF-8">\n  <meta name="robots" content="noindex, nofollow"><!-- remove at launch -->\n  <meta http-equiv="refresh" content="0; url=space-restaurant.html">\n  <link rel="canonical" href="space-restaurant.html">\n  <title>Redirecting to Space Restaurant</title>\n</head>\n<body>\n  <p><a href="space-restaurant.html">Go to Space Restaurant</a></p>\n</body>\n</html>`
         },
-        reactor: {
-          title: 'MODE 02 // SPACE HABITAT ENERGY CORE',
-          scale: '10² m (Habitat Microgrid)',
-          flux: '132 kW Hybrid Output',
-          state: 'Toroidal Plasma Lock'
-        },
-        cosmic: {
-          title: 'MODE 03 // MICRO-TO-MACRO COSMIC SCALE',
-          scale: '10²¹ m (Galactic Spiral)',
-          flux: '21-cm Hydrogen Line',
-          state: 'Dark Energy Expansion'
-        }
-      };
+        { name: "blog.html", content: buildStandalonePageHTML('blog', 'blog.html', false) },
+        { name: "privacy.html", content: buildStandalonePageHTML('privacy', 'privacy.html', false) },
+        { name: "404.html", content: buildStandalonePageHTML('404', '404.html', false) },
+        { name: "css/site.css", content: cssContent },
+        { name: "js/site.js", content: "// Better Atoms Vanilla JS\n" + holeOnScreen.toString() },
+        { name: "robots.txt", content: "User-agent: *\nDisallow: /\n# remove at launch\n" },
+        { name: ".nojekyll", content: "" },
+        { name: "README.md", content: "Better Atoms website preview for Aman Singh (Better Atoms Technologies LLP).\nPreview only.\n" }
+      ];
 
-      document.getElementById('hud-title').textContent = modes[mode].title;
-      document.getElementById('telemetry-scale').textContent = modes[mode].scale;
-      document.getElementById('telemetry-flux').textContent = modes[mode].flux;
-      document.getElementById('telemetry-state').textContent = modes[mode].state;
-
-      ['molecular', 'reactor', 'cosmic'].forEach(m => {
-        const btn = document.getElementById('btn-mode-' + m);
-        if (btn) {
-          btn.className = (m === mode)
-            ? 'px-2.5 py-1 rounded-lg text-xs font-mono bg-atomCyan text-obsidian font-semibold transition'
-            : 'px-2.5 py-1 rounded-lg text-xs font-mono bg-white/10 text-slate-300 hover:bg-white/20 transition';
-        }
+      blogPosts.forEach(post => {
+        files.push({
+          name: `blog/${post.slug}.html`,
+          content: buildStandalonePageHTML('post', `blog/${post.slug}.html`, true)
+        });
       });
 
-      buildSceneGeometry();
+      const zipBlob = createZipArchive(files);
+      const url = URL.createObjectURL(zipBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'betteratoms-preview-repo.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
-    function updateExcitation(val) {
-      excitationSpeed = parseFloat(val);
-      document.getElementById('label-excitation').textContent = excitationSpeed.toFixed(1) + 'x';
-    }
-
-    function updateHarmonic(val) {
-      harmonicComplexity = parseInt(val, 10);
-      document.getElementById('label-harmonic').textContent = 'Level ' + harmonicComplexity;
-      buildSceneGeometry();
-    }
-
-    function animateThree() {
-      requestAnimationFrame(animateThree);
-      if (!isDragging && rootGroup && floorMirrorGroup) {
-        rootGroup.rotation.y += 0.0045 * excitationSpeed;
-        rootGroup.rotation.x = Math.sin(Date.now() * 0.0007 * excitationSpeed) * 0.18;
-        floorMirrorGroup.rotation.y = rootGroup.rotation.y;
-      }
-      if (renderer && scene && camera) {
-        renderer.render(scene, camera);
-      }
-    }
-
+    // 9. Initialization on Window Load
     window.onload = function () {
-      renderBlogFeed();
-      updateUfoSim();
-      switchPolicyTab('PRIV-2026');
-      initThreeLab();
-      animateThree();
+      renderChaptersGallery();
+      renderBlogCards();
+      initHeroVideo();
+      updateHoleGeometry();
+      initTiltFrames();
+      updateScrollDiveAndHeader();
+
+      // Announcement close button
+      const annClose = document.getElementById('announcement-close');
+      if (annClose) {
+        annClose.addEventListener('click', () => {
+          const bar = document.getElementById('announcement-bar');
+          if (bar) bar.hidden = true;
+        });
+      }
+
+      // Hero Pause Button
+      const pauseBtn = document.getElementById('hero-pause');
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+          heroPaused = !heroPaused;
+          pauseBtn.setAttribute('aria-pressed', heroPaused ? 'true' : 'false');
+          pauseBtn.textContent = heroPaused ? 'Play animation' : 'Pause animation';
+          const video = document.getElementById('hero-video');
+          if (video) {
+            if (heroPaused) video.pause();
+            else video.play().catch(() => {});
+          }
+        });
+      }
+
+      // Desktop Pointer Parallax on Hero
+      const heroStage = document.querySelector('.hero-stage');
+      if (heroStage) {
+        heroStage.addEventListener('pointermove', e => {
+          if (prefersReducedMotion.matches || e.pointerType === 'touch') return;
+          const rect = heroStage.getBoundingClientRect();
+          pointerTarget.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+          pointerTarget.y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        });
+        heroStage.addEventListener('pointerleave', () => {
+          pointerTarget.x = 0;
+          pointerTarget.y = 0;
+        });
+      }
+
+      // Dialog Lightbox Controls
+      const dlgClose = document.getElementById('dialog-close-btn');
+      const dlgPrev = document.getElementById('dialog-prev-btn');
+      const dlgNext = document.getElementById('dialog-next-btn');
+      if (dlgClose) dlgClose.addEventListener('click', () => document.getElementById('chapter-dialog').close());
+      if (dlgPrev) dlgPrev.addEventListener('click', () => openChapterDialog(activeChapterIndex - 1));
+      if (dlgNext) dlgNext.addEventListener('click', () => openChapterDialog(activeChapterIndex + 1));
+
+      // IntersectionObserver to pause hero when off-screen
+      const heroEl = document.getElementById('hero-section');
+      if ('IntersectionObserver' in window && heroEl) {
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            heroVisible = entry.isIntersecting;
+          });
+        }, { threshold: 0.01 });
+        obs.observe(heroEl);
+      }
+
+      window.addEventListener('resize', updateHoleGeometry);
+      requestAnimationFrame(renderHeroFrame);
     };
   </script>
 </body>
