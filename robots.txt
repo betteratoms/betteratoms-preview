@@ -1,3 +1,0 @@
-# remove at launch
-User-agent: *
-Disallow: /
