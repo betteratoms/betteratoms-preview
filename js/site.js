@@ -139,6 +139,14 @@
   var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
   var W = 0, H = 0, hole = { x: 0, y: 0, shadow: 1 }, sparks = [], stars = [];
   var COLORS = ['#FFD27A', '#4FE3FF', '#C8F07A', '#FFFFFF'];
+  // pre-rendered glowing dots (cheaper than shadowBlur on every frame)
+  var SPRITES = {};
+  COLORS.forEach(function (c) {
+    var cv = doc.createElement('canvas'); cv.width = cv.height = 32;
+    var g = cv.getContext('2d'), grd = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grd.addColorStop(0, '#FFFFFF'); grd.addColorStop(0.18, c); grd.addColorStop(0.4, c + '55'); grd.addColorStop(1, c + '00');
+    g.fillStyle = grd; g.fillRect(0, 0, 32, 32); SPRITES[c] = cv;
+  });
   function rand(a, b) { return a + Math.random() * (b - a); }
   function spawn(p, initial) {
     p.r = hole.shadow * (initial ? rand(1.3, 6) : rand(2.5, 6));
@@ -234,10 +242,10 @@
       var x = hole.x + Math.cos(p.a) * p.r, y = hole.y + Math.sin(p.a) * p.r * 0.42;
       var fadeIn = Math.min(1, (6 - rn) / 0.8), fadeOut = Math.min(1, (rn - 1.1) / 0.9);
       ctx.globalAlpha = Math.max(0, Math.min(fadeIn, fadeOut)) * 0.95;
-      ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = p.size * 4;
-      ctx.beginPath(); ctx.arc(x, y, p.size, 0, Math.PI * 2); ctx.fill();
+      var spr = SPRITES[p.c], d = p.size * 6;
+      ctx.drawImage(spr, x - d / 2, y - d / 2, d, d);
     }
-    ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+    ctx.globalAlpha = 1;
     requestAnimationFrame(draw);
   }
   function kick() {
